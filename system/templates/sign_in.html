@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>index</title>
+		<meta name="author" content="THANG" />
+		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print">
+		<!--[if IE]>
+		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection">
+		<![endif]-->
+		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection">
+	</head>
+	<body>
+		<div class="container center">
+			<form action="" method="POST">
+				<div class="large">
+					{% csrf_token %}
+					{{form.errors}} 
+					<label>User Name:</label>
+					<br />
+					{{form.username}} 
+					<br />
+					<label>Password:</label>
+					<br />
+					{{form.password}}
+					<br />
+					<input class="button" type="submit" value="Submit" />
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

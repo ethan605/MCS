@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>index</title>
+		<meta name="author" content="THANG" />
+		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print">
+		<!--[if IE]>
+		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection">
+		<![endif]-->
+		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection">
+	</head>
+	<body>
+		<div class="container">
+			<center>
+				<form action="" method="POST">
+					{% csrf_token %}
+					<table border="0">
+						<tr>
+							<td><label>Tên hiển thị</label></td>
+							<td>{{form.display_name}}</td>
+						</tr>
+						<tr>
+							<td class="vertical-center"><label>Tên đăng ký:</label> </td>
+							<td class="vertical-center" id="username-error">{{ form.username }}</td>
+								{% if form.username.errors %}
+									<td class="noborder">
+										<div class="vertical-center text-error">
+											{{ form.username.errors }}
+											<script>document.getElementById("username-error").setAttribute("class", "vertical-center error");</script>
+										</div>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td class="vertical-center"><label>Mật khẩu:</label></td>					
+							<td class="vertical-center" id="password-error">{{ form.password }}</td>
+							<td class="noborder">
+								{% if form.password.errors %}
+									<div class="vertical-center text-error">
+										{{ form.password.errors }}
+										<script>document.getElementById("password-error").setAttribute("class", "vertical-center error");</script>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td class="vertical-center"><label>Nhập lại mật khẩu:</label></td>
+							<td class="vertical-center" id="repassword-error">{{ form.repassword }}</td>
+							<td class="noborder">
+								{% if form.repassword.errors %}
+									<div class="vertical-center text-error">
+										{{ form.repassword.errors }}
+										<script>document.getElementById("repassword-error").setAttribute("class", "vertical-center error");</script>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td><label>Email:</label></td>
+							<td>{{ form.email }}</td>
+						</tr>
+						<tr>
+							<td class="vertical-center"><label>Nhập lại Email:</label></td>
+							<td class="vertical-center" id="email-error">{{ form.reemail }}</td>
+							<td class="noborder">
+								{% if form.reemail.errors %}
+									<div class="vertical-center text-error">
+										{{ form.reemail.errors }}
+										<script>document.getElementById("email-error").setAttribute("class", "vertical-center error");</script>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td><label>Địa chỉ:</label></td>
+							<td>{{ form.address }}</td>
+						</tr>
+						<tr>
+							<td><label>Số điện thoại:</label></td>
+							<td>{{ form.phone_number }}</td>
+						</tr>
+					</table>
+					<input type="submit" value="Submit" />
+				</form>
+			</center>
+		</div>
+	</body>
+</html>

@@ -11,6 +11,23 @@ class SignInForm(forms.Form):
     
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_username(self):
+        try:
+            User.objects.get(username__exact = self.cleaned_data["username"])
+        except User.DoesNotExist:
+            raise forms.ValidationError("Username does not exist")
+        return self.cleaned_data["username"]
+
+    def clean_password(self):
+        if "username" in self.cleaned_data:
+            try:
+                user_auth = User.objects.get(username__exact = self.cleaned_data["username"])
+            except User.DoesNotExist:
+                pass
+            if user_auth.password != self.cleaned_data["password"]:
+                raise forms.ValidationError("Password does not match")
+        return self.cleaned_data["password"]
         
 
 class ShopSignUpForm(forms.Form):

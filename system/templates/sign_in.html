@@ -15,23 +15,34 @@
 	<body>
 		<div class="container">
 			<div class="span-24" id="header">
-				<a href="{% url system.views.home %}">Index</a>.<a href="{% url system.views.sign_in %}">Sign In</a>
+				<a href="{% url system.views.index %}">Index</a>.<a href="{% url system.views.sign_in %}">Sign In</a>
 			</div>
-			<div class="block-center" id="content">
-				<form action="" method="POST">
-					<div class="large">
-						{% csrf_token %}
-						{{ form.errors }} 
-						<label>User Name:</label>
-						<br />
-						{{form.username}} 
-						<br />
-						<label>Password:</label>
-						<br />
-						{{form.password}}
-						<br />
-						<input class="button" type="submit" value="Submit" />
-					</div>
+			<div class="span-24" id="content">
+				<form class="block-center" action="" method="POST">
+					{% csrf_token %}
+					<table>
+						<tr>
+							<td><strong>Username:</strong></td>
+							<td id="username">{{ form.username }}</td>
+							{% if form.username.errors %}
+								<td class="text-error">{{ form.username.errors}}</td>
+								<script type="text/javascript">$("#username").addClass("error")</script>
+							{% endif %}
+						</tr>
+						<tr>
+							<td><strong>Password:</strong></td>
+							<td id="password">{{ form.password }}</td>
+							{% if form.password.errors %}
+								<td class="text-error">{{ form.password.errors}}</td>
+								<script type="text/javascript">$("#password").addClass("error")</script>
+							{% endif %}
+						</tr>
+					</table>
+					<input class="button" type="submit" value="Submit" />
+					<script type="text/javascript">
+						$("table").addClass("noborder");
+						$("tr td").addClass("noborder");
+					</script>
 				</form>
 			</div>
 		</div>

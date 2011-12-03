@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     
     url(r'^$', 'system.views.home'),
     url(r'^signin/$','system.views.sign_in'),
-    url(r'^shop/signup/$','system.views.shop_sign_up'),
+    url(r'^shop/signup/$','system.views.shop_signup'),
     url(r'^admin/$','system.views.admin'),
-    (r'^success/$','system.views.success'),
+    url(r'^success/$','system.views.success'),
 )

@@ -2,89 +2,94 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>index</title>
+		<title>Sign Up</title>
 		<meta name="author" content="THANG" />
-		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection">
-		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print">
+		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
+		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print" />
 		<!--[if IE]>
-		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection">
+		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection" />
 		<![endif]-->
-		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection" />
 	</head>
 	<body>
 		<div class="container">
-			<center>
-				<form action="" method="POST">
+			<div class="span-24" id="header">
+				<a href="{% url system.views.home %}">Index</a>.
+				<a href="{% url system.views.shop_signup %}">Sign Up</a>
+			</div>
+			<div class="span-24 block-center" id="content">
+				<form class="block-center" action="" method="POST">
 					{% csrf_token %}
-					<table border="0">
+					<table>
 						<tr>
-							<td><label>Tên hiển thị</label></td>
-							<td>{{form.display_name}}</td>
+							<td><strong>Tên hiển thị</strong></td>
+							<td>{{ form.display_name }}</td>
 						</tr>
 						<tr>
-							<td class="vertical-center"><label>Tên đăng ký:</label> </td>
+							<td class="vertical-center"><strong>Tên đăng ký:</strong> </td>
 							<td class="vertical-center" id="username-error">{{ form.username }}</td>
 								{% if form.username.errors %}
 									<td class="noborder">
 										<div class="vertical-center text-error">
 											{{ form.username.errors }}
-											<script>document.getElementById("username-error").setAttribute("class", "vertical-center error");</script>
+											<script>$("#username-error").addClass("error");</script>
 										</div>
+									</td>
 								{% endif %}
-							</td>
 						</tr>
 						<tr>
-							<td class="vertical-center"><label>Mật khẩu:</label></td>					
+							<td class="vertical-center"><strong>Mật khẩu:</strong></td>					
 							<td class="vertical-center" id="password-error">{{ form.password }}</td>
-							<td class="noborder">
-								{% if form.password.errors %}
+							{% if form.password.errors %}
+								<td class="noborder">
 									<div class="vertical-center text-error">
 										{{ form.password.errors }}
-										<script>document.getElementById("password-error").setAttribute("class", "vertical-center error");</script>
+										<script>$("#password-error").addClass("error");</script>
 									</div>
-								{% endif %}
-							</td>
+								</td>
+							{% endif %}
 						</tr>
 						<tr>
-							<td class="vertical-center"><label>Nhập lại mật khẩu:</label></td>
+							<td class="vertical-center"><strong>Nhập lại mật khẩu:</strong></td>
 							<td class="vertical-center" id="repassword-error">{{ form.repassword }}</td>
-							<td class="noborder">
-								{% if form.repassword.errors %}
+							{% if form.repassword.errors %}
+								<td class="noborder">
 									<div class="vertical-center text-error">
 										{{ form.repassword.errors }}
-										<script>document.getElementById("repassword-error").setAttribute("class", "vertical-center error");</script>
+										<script>$("#repassword-error").addClass("error");</script>
 									</div>
-								{% endif %}
-							</td>
+								</td>
+							{% endif %}
 						</tr>
 						<tr>
-							<td><label>Email:</label></td>
+							<td><strong>Email:</strong></td>
 							<td>{{ form.email }}</td>
 						</tr>
 						<tr>
-							<td class="vertical-center"><label>Nhập lại Email:</label></td>
+							<td class="vertical-center"><strong>Nhập lại Email:</strong></td>
 							<td class="vertical-center" id="email-error">{{ form.reemail }}</td>
-							<td class="noborder">
-								{% if form.reemail.errors %}
+							{% if form.reemail.errors %}
+								<td class="noborder">
 									<div class="vertical-center text-error">
 										{{ form.reemail.errors }}
-										<script>document.getElementById("email-error").setAttribute("class", "vertical-center error");</script>
+										<script>$("#email-error").addClass("error");</script>
 									</div>
-								{% endif %}
-							</td>
+								</td>
+							{% endif %}
 						</tr>
 						<tr>
-							<td><label>Địa chỉ:</label></td>
+							<td><strong>Địa chỉ:</strong></td>
 							<td>{{ form.address }}</td>
 						</tr>
 						<tr>
-							<td><label>Số điện thoại:</label></td>
+							<td><strong>Số điện thoại:</strong></td>
 							<td>{{ form.phone_number }}</td>
 						</tr>
 					</table>
 					<input type="submit" value="Submit" />
 				</form>
-			</center>
+			</div>
 		</div>
 	</body>
 </html>

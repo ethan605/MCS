@@ -48,8 +48,11 @@ def shop_signup(request):
     if request.method == "POST":
         form = ShopSignUpForm(data=request.POST)
         if form.is_valid():
-            print form.clean_username()
             form.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(username=username, password=password)
+            login(request, user)
             return render_to_response("success.html")
     else:
         if request.user.is_authenticated():

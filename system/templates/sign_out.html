@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="refresh" content="3;url=/">
 		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
 		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print" />
@@ -11,13 +12,9 @@
 		<title>User signed out</title>
 	</head>
 	<body>
-		<div class="container">
-			<div class="span-24" id="header">
-				<a href="{% url system.views.index %}">Index</a>
-			</div>
-			<div class="span-24" id="content">
-				<h1>You're successfully signed out</h1>
-			</div>
+		<div class="container center">
+			<h1>You're successfully signed out</h1>
+			<a href="/">(Click here if your browser doesn't automatically redirect)</a>
 		</div>
 	</body>
 </html>

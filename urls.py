@@ -21,5 +21,4 @@ urlpatterns = patterns("",
     url(r"^admin/$","system.views.admin"),
     url(r"^usercp/$", "system.views.usercp"),
     url(r"^signout/$", "system.views.signout"),
-#    url(r"^success/$","system.views.success"),
 )

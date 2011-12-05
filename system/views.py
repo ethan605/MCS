@@ -48,7 +48,8 @@ def shop_signup(request):
 
 def admin(request):
     """ trang cua admin"""
-    if not request.user.is_authenticated() and request.user.is_superuser:
+    if not request.user.is_authenticated():
+        
         message = "user is not admin"
         return render_to_response("failure.html",{"message": message})
     shops = Shop.objects.all()
@@ -58,6 +59,7 @@ def usercp(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/signin/")
     """ user control panel site"""
+    print request.user
     return render_to_response("usercp.html")
 
 def success(request):

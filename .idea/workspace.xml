@@ -2,64 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="891c0baf-0d37-4f53-a95e-8fbf3a4d4648" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/grid.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/grid.psd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/cross.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/doc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/email.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/external.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/feed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/im.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/information.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/key.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/pdf.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/tick.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/visited.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/icons/xls.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/images/test-small.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/grid.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/grid.psd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/cross.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/doc.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/email.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/external.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/feed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/im.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/information.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/key.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/pdf.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/tick.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/visited.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/icons/xls.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/images/test-small.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/css/screen.css.bak" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/static/jquery-1.7.1.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/js/jquery-1.7.1.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/js/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/system/templates/usercp.html" />
-      <change type="DELETED" beforePath="E:\WORKSPACE\MCS\MCS\.idea\.name" afterPath="" />
-      <change type="DELETED" beforePath="E:\WORKSPACE\MCS\MCS\.idea\dataSources.ids" afterPath="" />
-      <change type="DELETED" beforePath="E:\WORKSPACE\MCS\MCS\.idea\dataSources.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\WORKSPACE\MCS\MCS\.idea\workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\WORKSPACE\MCS\MCS\New Text Document.txt" afterPath="" />
-      <change type="DELETED" beforePath="E:\WORKSPACE\MCS\MCS\system\migrations\0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="E:\WORKSPACE\MCS\MCS\system\migrations\__init__.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.py" afterPath="$PROJECT_DIR$/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/forms.py" afterPath="$PROJECT_DIR$/system/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/models.py" afterPath="$PROJECT_DIR$/system/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/static/screen.css" afterPath="$PROJECT_DIR$/system/static/screen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/admin.html" afterPath="$PROJECT_DIR$/system/templates/admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/css/screen.css" afterPath="$PROJECT_DIR$/system/templates/css/screen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/css/style.css" afterPath="$PROJECT_DIR$/system/templates/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/failure.html" afterPath="$PROJECT_DIR$/system/templates/failure.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/index.html" afterPath="$PROJECT_DIR$/system/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/shop_signup.html" afterPath="$PROJECT_DIR$/system/templates/shop_signup.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/sign_in.html" afterPath="$PROJECT_DIR$/system/templates/sign_in.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/templates/success.html" afterPath="$PROJECT_DIR$/system/templates/success.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/tests.py" afterPath="$PROJECT_DIR$/system/tests.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system/views.py" afterPath="$PROJECT_DIR$/system/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/urls.py" afterPath="$PROJECT_DIR$/urls.py" />
     </list>
     <ignored path="MCS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,7 +28,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="68" selection-start="1953" selection-end="1953" vertical-scroll-proportion="0.3222749">
+            <state line="25" column="59" selection-start="679" selection-end="931" vertical-scroll-proportion="0.6492891">
               <folding />
             </state>
           </provider>
@@ -331,7 +274,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1618" height="870" extended-state="6" />
+    <frame x="-9" y="-9" width="1618" height="870" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -417,7 +360,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="68" selection-start="1953" selection-end="1953" vertical-scroll-proportion="0.3222749">
+        <state line="25" column="59" selection-start="679" selection-end="931" vertical-scroll-proportion="0.6492891">
           <folding />
         </state>
       </provider>

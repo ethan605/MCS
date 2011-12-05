@@ -2,7 +2,7 @@
 
 from MCS.system.models import User
 admin = User()
-admin.username = 'admin'
-admin.password = 'admin'
-admin.priority = 1
+admin.username = 'test'
+admin.password = 'test'
+admin.priority = 2
 admin.save()

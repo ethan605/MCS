@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Index site</title>
-		<meta name="author" content="THANG" />
 		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
 		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print" />
@@ -11,20 +8,16 @@
 		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection" />
 		<![endif]-->
 		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection" />
+		<title>User Control Panel site</title>
 	</head>
 	<body>
 		<div class="container">
 			<div class="span-24" id="header">
-				<div class="span-1">
-					<a href="{% url system.views.index %}">Index</a>
-				</div>
-				<div class="span-5 push-17 last">
-					<a class="button" href="/signin/">Đăng nhập</a>
-					<a class="button" href="/shop/signup/">Đăng ký</a>
-				</div>
+				<a href="{% url system.views.index %}">Index</a>.
+				<a href="{% url system.views.usercp %}">User CP</a>
 			</div>
 			<div class="span-24" id="content">
-				<h1>Main header</h1>
+				<h1>User Control Panel site</h1>
 			</div>
 		</div>
 	</body>

@@ -11,8 +11,14 @@ class SignInForm(forms.Form):
     
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-        
 
+    def clean_username(self):
+        try:
+            User.objects.get(username__exact = self.cleaned_data["username"])
+        except User.DoesNotExist:
+            raise forms.ValidationError("Username does not exist")
+        return self.cleaned_data["username"]
+        
 class ShopSignUpForm(forms.Form):
     ''' form dang ky nhung thong tin co ban cua cua hang
     link: localhost:8000/shop/signup/'''
@@ -66,9 +72,8 @@ class ShopSignUpForm(forms.Form):
     def save(self):
         new_user = Shop()
         new_user.username = self.cleaned_data['username']
-        new_user.password = self.cleaned_data['password']
+        new_user.set_password(self.cleaned_data['password'])
         new_user.email = self.cleaned_data['email']
-        new_user.priority = 2
         new_user.address = self.cleaned_data['address']
         new_user.phone_number = self.cleaned_data['phone_number']
         new_user.display_name = self.cleaned_data['display_name']

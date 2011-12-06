@@ -7,10 +7,10 @@ from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     """ trang chu"""
-    if not request.user.is_authenticated():
-        return render_to_response("index.html")
+#    if not request.user.is_authenticated():
+#        return render_to_response("index.html")
 
-    return render_to_response("index.html", {"username": request.user.username})
+    return render_to_response("index.html", {"user": request.user})
 
 def sign_in(request):
     """ trang dang nhap"""
@@ -62,14 +62,13 @@ def shop_signup(request):
 
 def admin(request):
     """ trang cua admin"""
-    if not request.user.is_authenticated() and request.user.is_superuser:
-        message = "user is not admin"
-        return render_to_response("failure.html",{"message": message})
+    if not request.user.is_authenticated() or not request.user.is_superuser:
+        return HttpResponseRedirect("/")
     shops = Shop.objects.all()
-    return render_to_response("admin.html", {"shops": shops})
+    return render_to_response("admin.html", {"user":request.user, "shops":shops})
 
 def usercp(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/signin/")
 
-    return render_to_response("usercp.html", {"username": request.user.username})
+    return render_to_response("usercp.html", {"user": request.user})

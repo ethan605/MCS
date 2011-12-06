@@ -1,41 +1,20 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Index site</title>
-		<meta name="author" content="THANG" />
-		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
-		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print" />
-		<!--[if IE]>
-		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection" />
-		<![endif]-->
-		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection" />
-	</head>
-	<body>
-		<div class="container">
-			<div class="span-24" id="header">
-				<div class="span-1">
-					<a href="{% url system.views.index %}">Index</a>
-				</div>
-				{% if not username %}
-					<div class="span-5 push-17 last">
-						<a class="button" href="/signin/">Sign in</a>
-						<a class="button" href="/shop/signup/">Sign up</a>
-					</div>
-				{% else %}
-					<div class="span-5 push-18 last">
-						<a class="button" href="/usercp/">{{ username }}</a>
-						<a class="button" href="/signout/">Sign out</a>
-					</div>
-				{% endif %}
-			</div>
-			<div class="span-24" id="content">
-				<h1>Main header</h1>
-				{% if username %}
-					<h2>Hello {{ username }}</h2>
-				{% endif %}
-			</div>
-		</div>
-	</body>
-</html>
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}MCS - Index site{% endblock %}
+
+{% block header_buttons %}
+	<a class="button" href="/signin/">Sign in</a>
+	<a class="button" href="/shop/signup/">Sign up</a>
+{% endblock %}
+
+{% block content%}
+	<h1>Main content</h1>
+	{% if user.is_authenticated %}
+		<h2>Hello {{ user.username }}</h2>
+	{% else %}
+		<h2>Hello stranger, you're not signed in</h2>
+		<p>Please <a href="/signin/">sign in</a> or <a href="/signup/">sign up</a> for a new account now</p>
+	{% endif %}
+{% endblock %}

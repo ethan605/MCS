@@ -1,50 +1,36 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Sign In</title>
-		<meta name="author" content="THANG" />
-		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
-		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print" />
-		<!--[if IE]>
-		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection" />
-		<![endif]-->
-		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection" />
-	</head>
-	<body>
-		<div class="container">
-			<div class="span-24" id="header">
-				<a href="{% url system.views.index %}">Index</a>.<a href="{% url system.views.sign_in %}">Sign In</a>
-			</div>
-			<div class="span-24" id="content">
-				<form class="block-center" action="" method="POST">
-					{% csrf_token %}
-					<table>
-						<tr>
-							<td><strong>Username:</strong></td>
-							<td id="username">{{ form.username }}</td>
-							{% if form.username.errors %}
-								<td class="text-error">{{ form.username.errors}}</td>
-								<script type="text/javascript">$("#username").addClass("error")</script>
-							{% endif %}
-						</tr>
-						<tr>
-							<td><strong>Password:</strong></td>
-							<td id="password">{{ form.password }}</td>
-							{% if form.password.errors %}
-								<td class="text-error">{{ form.password.errors}}</td>
-								<script type="text/javascript">$("#password").addClass("error")</script>
-							{% endif %}
-						</tr>
-					</table>
-					<input class="button" type="submit" value="Submit" />
-					<script type="text/javascript">
-						$("table").addClass("noborder");
-						$("tr td").addClass("noborder");
-					</script>
-				</form>
-			</div>
-		</div>
-	</body>
-</html>
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}MCS - Sign in{% endblock %}
+
+{% block header_buttons %}<a class="button" href="/shop/signup/">Sign up</a>{% endblock %}
+
+{% block content %}
+<form class="block-center" action="" method="POST">
+	{% csrf_token %}
+	<table>
+		<tr>
+			<td><strong>Username:</strong></td>
+			<td id="username">{{ form.username }}</td>
+			{% if form.username.errors %}
+				<td class="text-error">{{ form.username.errors}}</td>
+				<script type="text/javascript">$("#username").addClass("error")</script>
+			{% endif %}
+		</tr>
+		<tr>
+			<td><strong>Password:</strong></td>
+			<td id="password">{{ form.password }}</td>
+			{% if form.password.errors %}
+				<td class="text-error">{{ form.password.errors}}</td>
+				<script type="text/javascript">$("#password").addClass("error")</script>
+			{% endif %}
+		</tr>
+	</table>
+	<input class="button" type="submit" value="Submit" />
+	<script type="text/javascript">
+		$("table").addClass("noborder");
+		$("tr td").addClass("noborder");
+	</script>
+</form>
+{% endblock %}

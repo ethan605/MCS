@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from MCS.system.forms import SignInForm, ShopSignUpForm
 from django.http import HttpResponseRedirect, HttpResponse
@@ -32,7 +33,7 @@ def sign_in(request):
         form = SignInForm()
     return render_to_response("sign_in.html", {"form": form}, context_instance=RequestContext(request))
 
-def signout(request):
+def sign_out(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/")
     
@@ -72,12 +73,20 @@ def usercp(request):
 
 def ajax(request):
     if request.is_ajax():
-        if request.method == "GET":
-            message = "This is an XHR GET request"
-        elif request.method == "POST":
-            message = "This is an XHR POST request"
-        else:
-            message = "Neither"
-        return HttpResponse(message)
+        user = User()
+        try:
+            user = User.objects.get(username__exact=request.POST["username"])
+        except User.DoesNotExist:
+            if not "password" in request.POST:
+                return HttpResponse("Username does not exist")
+            return HttpResponse()
+
+        if not "password" in request.POST:
+            return HttpResponse("validated")
+        if request.POST["password"] == "":
+            return HttpResponse("This field is required")
+        if not user.check_password(request.POST["password"]):
+            return HttpResponse("Password does not match")
+        return HttpResponse("validated")
 
     return render_to_response("ajax.html")

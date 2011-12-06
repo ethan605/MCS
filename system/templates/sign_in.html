@@ -2,7 +2,11 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block js %}<script type="text/javascript" src="/static/jquery.validate.min.js"></script>{% endblock %}
+{% block js %}
+	<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>
+{% endblock %}
+
 {% block title %}MCS - Sign in{% endblock %}
 
 {% block header_buttons %}<a class="button" href="/shop/signup/">Sign up</a>{% endblock %}
@@ -14,37 +18,43 @@
 		<tr>
 			<td><strong>Username:</strong></td>
 			<td>{{ form.username }}</td>
-			{% if form.username.errors %}
-				<td class="text-error">{{ form.username.errors }}</td>
-			{% else %}
-				<td></td>
-			{% endif %}
+			<td><label class="text-error" id="username-error"></label></td>
 		</tr>
 		<tr>
 			<td><strong>Password:</strong></td>
 			<td>{{ form.password }}</td>
-			{% if form.password.errors %}
-				<td class="text-error">{{ form.password.errors }}</td>
-			{% else %}
-				<td></td>
-			{% endif %}
+			<td><label class="text-error" id="password-error"></label></td>
 		</tr>
 	</table>
 	<p>
 		{{ form.remember }}
 		<label for="remember">Remember me</label>
 	</p>
-	<input class="button" type="submit" value="Submit" />
+	<input id="submit" type="submit" value="Submit" />
 	<script type="text/javascript">
 		$("table,tr,td").addClass("noborder");
-		$("#id_username,#id_password").addClass("required");
-		$("form").validate({
-			errorClass: "text-error",
-			wrapper: "ul",
-			errorElement: "li",
-			errorPlacement: function(error, element) {
-				element.parent("td").next("td").html(error);
-			}
+		$("#id_username").blur(function(){
+			if ($("#id_username").val() != "")
+				$.ajax({
+					type: "POST",
+					url: "/ajax/",
+					data: {username: $("#id_username").val()},
+					success: function(data){
+						$("#username-error").html(data == "validated" ? "" : data);
+					}
+				});
+			else
+				$("#username-error").html("This field is required");
+		});
+		$("#id_password").blur(function(){
+			$.ajax({
+				type: "POST",
+				url: "/ajax/",
+				data: {username: $("#id_username").val(), password: $("#id_password").val()},
+				success: function(data){
+					$("#password-error").html(data == "validated" ? "" : data);
+				}
+			});
 		});
 	</script>
 </form>

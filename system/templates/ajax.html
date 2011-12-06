@@ -5,15 +5,17 @@
 {% block js %}<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>{% endblock %}
 
 {% block content %}
-	<p id="p-id">{{ message }}</p>
+	<p id="p-id-1"></p>
+	<p id="p-id-2"></p>
 	<script type="text/javascript">
 		function x() {
 			$.ajax({
 				type: "POST",
 				url: "/ajax/",
-				data: {data: "data"},
+				data: {username:"root", password: "root"},
 				success: function(data){
-					$("#p-id").html(data);
+					$("#p-id-1").html(data[0]);
+					$("#p-id-2").html(data);
 				}
 			});
 		};

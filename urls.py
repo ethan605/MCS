@@ -20,6 +20,6 @@ urlpatterns = patterns("",
     url(r"^shop/signup/$","system.views.shop_signup"),
     url(r"^admin/$","system.views.admin"),
     url(r"^usercp/$", "system.views.usercp"),
-    url(r"^signout/$", "system.views.signout"),
+    url(r"^signout/$", "system.views.sign_out"),
     url(r"^ajax/$", "system.views.ajax")
 )

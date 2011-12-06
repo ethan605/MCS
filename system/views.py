@@ -1,15 +1,12 @@
 # Create your views here.
 from django.shortcuts import render_to_response
 from MCS.system.forms import SignInForm, ShopSignUpForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from MCS.system.models import Shop
 from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     """ trang chu"""
-#    if not request.user.is_authenticated():
-#        return render_to_response("index.html")
-
     return render_to_response("index.html", {"user": request.user})
 
 def sign_in(request):
@@ -23,7 +20,6 @@ def sign_in(request):
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             user = authenticate(username = username, password = password)
-            print user
             if user is not None:
                 if user.is_active:
                     login(request,user)
@@ -72,3 +68,15 @@ def usercp(request):
         return HttpResponseRedirect("/signin/")
 
     return render_to_response("usercp.html", {"user": request.user})
+
+def ajax(request):
+    if request.is_ajax():
+        if request.method == 'GET':
+            message = "This is an XHR GET request"
+        elif request.method == 'POST':
+            message = "This is an XHR POST request"
+            # Here we can access the POST data
+            print request.POST
+    else:
+        message = "No XHR"
+    return HttpResponse(message)

@@ -7,7 +7,7 @@
 {% block header_buttons %}<a class="button" href="/shop/signup/">Sign up</a>{% endblock %}
 
 {% block content %}
-<form class="block-center" action="" method="POST">
+<form class="block-center" action="{% url 'system.views.sign_in' %}" method="POST">
 	{% csrf_token %}
 	<table>
 		<tr>
@@ -27,6 +27,10 @@
 			{% endif %}
 		</tr>
 	</table>
+	<p>
+		{{ form.remember }}
+		<label for="remember">Remember me</label>
+	</p>
 	<input class="button" type="submit" value="Submit" />
 	<script type="text/javascript">
 		$("table").addClass("noborder");

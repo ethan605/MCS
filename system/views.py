@@ -4,6 +4,7 @@ from MCS.system.forms import SignInForm, ShopSignUpForm
 from django.http import HttpResponseRedirect, HttpResponse
 from MCS.system.models import Shop
 from django.contrib.auth import authenticate, login, logout
+from django.template import RequestContext
 
 def index(request):
     """ trang chu"""
@@ -29,7 +30,7 @@ def sign_in(request):
                     return render_to_response("failure.html", {"message":message})
     else:
         form = SignInForm()
-    return render_to_response("sign_in.html",{"form": form})
+    return render_to_response("sign_in.html", {"form": form}, context_instance=RequestContext(request))
 
 def signout(request):
     if not request.user.is_authenticated():
@@ -54,7 +55,7 @@ def shop_signup(request):
         if request.user.is_authenticated():
             return HttpResponseRedirect("/")
         form = ShopSignUpForm()
-    return render_to_response("shop_signup.html",{"form": form})
+    return render_to_response("shop_signup.html", {"form": form}, context_instance=RequestContext(request))
 
 def admin(request):
     """ trang cua admin"""
@@ -71,12 +72,12 @@ def usercp(request):
 
 def ajax(request):
     if request.is_ajax():
-        if request.method == 'GET':
+        if request.method == "GET":
             message = "This is an XHR GET request"
-        elif request.method == 'POST':
+        elif request.method == "POST":
             message = "This is an XHR POST request"
-            # Here we can access the POST data
-            print request.POST
-    else:
-        message = "No XHR"
-    return HttpResponse(message)
+        else:
+            message = "Neither"
+        return HttpResponse(message)
+
+    return render_to_response("ajax.html")

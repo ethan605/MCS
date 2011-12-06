@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load url from future %}
 
+{% block js %}<script type="text/javascript" src="/static/jquery.validate.min.js"></script>{% endblock %}
 {% block title %}MCS - Sign in{% endblock %}
 
 {% block header_buttons %}<a class="button" href="/shop/signup/">Sign up</a>{% endblock %}
@@ -12,18 +13,20 @@
 	<table>
 		<tr>
 			<td><strong>Username:</strong></td>
-			<td id="username">{{ form.username }}</td>
+			<td>{{ form.username }}</td>
 			{% if form.username.errors %}
-				<td class="text-error">{{ form.username.errors}}</td>
-				<script type="text/javascript">$("#username").addClass("error")</script>
+				<td class="text-error">{{ form.username.errors }}</td>
+			{% else %}
+				<td></td>
 			{% endif %}
 		</tr>
 		<tr>
 			<td><strong>Password:</strong></td>
-			<td id="password">{{ form.password }}</td>
+			<td>{{ form.password }}</td>
 			{% if form.password.errors %}
-				<td class="text-error">{{ form.password.errors}}</td>
-				<script type="text/javascript">$("#password").addClass("error")</script>
+				<td class="text-error">{{ form.password.errors }}</td>
+			{% else %}
+				<td></td>
 			{% endif %}
 		</tr>
 	</table>
@@ -33,8 +36,16 @@
 	</p>
 	<input class="button" type="submit" value="Submit" />
 	<script type="text/javascript">
-		$("table").addClass("noborder");
-		$("tr td").addClass("noborder");
+		$("table,tr,td").addClass("noborder");
+		$("#id_username,#id_password").addClass("required");
+		$("form").validate({
+			errorClass: "text-error",
+			wrapper: "ul",
+			errorElement: "li",
+			errorPlacement: function(error, element) {
+				element.parent("td").next("td").html(error);
+			}
+		});
 	</script>
 </form>
 {% endblock %}

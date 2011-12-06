@@ -2,24 +2,24 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block title %}
-<script type="text/javascript">
-$(document).ready(function() {
-$('.fact').bind('click', function () {
-$.get("/test/"+this.id+"/", function(data) {
-if (data.fact_type=="T") {
-guess_result="This fact is true! " + data.fact_note;
-} else {
-guess_result="This fact is false! " + data.fact_note;
-}
-$('#result')[0].innerHTML=guess_result;
-});
-});
-});
-</script>
+{% block js %}<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>{% endblock %}
 
-<div id="1" class="fact">I love bugs</div>
-<div id="2" class="fact">I love hugs</div>
-<div id="3" class="fact">I love pugs</div>
-<div id="result">Click on the lie!</div>
+{% block content %}
+	<p id="p-id">{{ message }}</p>
+	<script type="text/javascript">
+		function x() {
+			$.ajax({
+				type: "POST",
+				url: "/ajax/",
+				data: {data: "data"},
+				success: function(data){
+					$("#p-id").html(data);
+				}
+			});
+		};
+		function y() {
+			$("#p-id").html("test");
+		}
+	</script>
+	<a class="button" href="javascript:void(0)" onclick="x()">Click</a>
 {% endblock %}

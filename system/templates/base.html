@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block meta %}
+			<!-- for extra meta tags -->
+		{% endblock %}
+		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
+		{% block js %}
+			<!-- for extra javascript -->
+		{% endblock %}
+		<link rel="stylesheet" href="/static/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/static/print.css" type="text/css" media="print" />
+		<!--[if IE]>
+		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection" />
+		<![endif]-->
+		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection" />
+		{% block css %}
+			<!-- for extra css -->
+		{% endblock %}
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+	<body>
+		<div class="container" id="header">
+			<div class="span-5">
+				<a href="{% url system.views.index %}">Index</a>
+				{% block header_url %}{% endblock %}
+			</div>
+			<div class="span-5 push-13 last" id="header-buttons">
+				{% if user.is_authenticated %}
+					{% if user.is_superuser %}
+						<script type="text/javascript">$("#header-buttons").attr("class", "span-6 push-12 last");</script>
+						<a class="button" href="/admin/">Admin</a>	
+					{% endif %}
+					<a class="button" href="/usercp/">User CP</a>
+					<a class="button" href="/signout/">Sign out</a>
+				{% else %}
+					{% block header_buttons %}{% endblock %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="container main-content" id="content">
+			{% block content %}{% endblock %}
+		</div>
+		<div class="container" id="footer">
+			<div class="center">Copyright (c) MCS</div>
+		</div>
+	</body>
+</html>

@@ -42,6 +42,7 @@
 .errorlist, .vertical-center {margin-bottom: 0; vertical-align: middle;}
 .block-center {display: block; text-align: -webkit-center;}
 .noborder { border: none; }
+.first {float: left;}
 
 /**************************************/
 /*               FOOTER               */

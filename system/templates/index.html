@@ -18,13 +18,23 @@
 				<div class="span-1">
 					<a href="{% url system.views.index %}">Index</a>
 				</div>
-				<div class="span-5 push-17 last">
-					<a class="button" href="/signin/">Đăng nhập</a>
-					<a class="button" href="/shop/signup/">Đăng ký</a>
-				</div>
+				{% if not username %}
+					<div class="span-5 push-17 last">
+						<a class="button" href="/signin/">Đăng nhập</a>
+						<a class="button" href="/shop/signup/">Đăng ký</a>
+					</div>
+				{% else %}
+					<div class="span-5 push-18 last">
+						<a class="button" href="/usercp/">{{ username }}</a>
+						<a class="button" href="/signout/">Sign out</a>
+					</div>
+				{% endif %}
 			</div>
 			<div class="span-24" id="content">
 				<h1>Main header</h1>
+				{% if username %}
+					<h2>Hello {{ username }}</h2>
+				{% endif %}
 			</div>
 		</div>
 	</body>

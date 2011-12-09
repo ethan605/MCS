@@ -7,31 +7,13 @@
 		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="/static/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>
+		<script type="text/javascript" src="/static/jquery.form.js"></script>
+		<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="/static/mcs.user.sign.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$(".button").attr("class", "ui-state-default ui-corner-all ui-button ui-button-ex");
 				$(".link").attr("class", "ui-state-default ui-corner-all ui-button ui-button-link");
-				$("#signout-notice").dialog({
-					autoOpen: false,
-					modal: true,
-					resizable: false,
-					buttons: {
-						"OK": function() {
-							$(this).dialog("close");
-							$(location).attr("href", "/");
-						}
-					}
-				});
-				$("#signout-button").click(function() {
-					$.ajax({
-						type: "POST",
-						url: "/signout/",
-						success: function(data) {
-							$("#signout-notice").html("You're successfully signed out!").dialog("open");
-						}
-					});
-					return false;
-				});
 			});
 		</script>
 		{% block js %}
@@ -77,7 +59,8 @@
 		</div>
 		
 		<!-- html components for javascript -->
-		<div id="signout-notice" class="center" title="User sign out"></div>
+		<div class="center" id="signout-confirm" title="Confirm"></div>
+		<div class="center" id="signout-notice" title="User sign out"></div>
 		{% block js_components %}
 		{% endblock %}
 	</body>

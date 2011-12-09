@@ -21,6 +21,7 @@ urlpatterns = patterns("",
     url(r"^signup/success/$","system.views.success"),
     url(r"^admin/$","system.views.admin"),
     url(r"^usercp/$", "system.views.usercp"),
+    url(r"^usercp/changepass/$", "system.views.changepass"),
     url(r"^signout/$", "system.views.sign_out"),
     url(r"^ajax/$", "system.views.ajax")
 )

@@ -30,7 +30,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/system/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="65" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.8616188">
+            <state line="35" column="45" selection-start="1305" selection-end="1305" vertical-scroll-proportion="0.5483029">
               <folding />
             </state>
           </provider>
@@ -39,7 +39,7 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="24" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0">
+            <state line="23" column="50" selection-start="869" selection-end="869" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -57,7 +57,7 @@
       <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/system/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="47" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.0">
+            <state line="11" column="13" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -81,11 +81,11 @@
         <option value="$PROJECT_DIR$/system/templates/sign_out.html" />
         <option value="$PROJECT_DIR$/system/models.py" />
         <option value="$PROJECT_DIR$/system/templates/ajax.html" />
-        <option value="$PROJECT_DIR$/system/forms.py" />
-        <option value="$PROJECT_DIR$/urls.py" />
         <option value="$PROJECT_DIR$/system/templates/500.html" />
-        <option value="$PROJECT_DIR$/system/views.py" />
         <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/urls.py" />
+        <option value="$PROJECT_DIR$/system/forms.py" />
+        <option value="$PROJECT_DIR$/system/views.py" />
       </list>
     </option>
   </component>
@@ -451,11 +451,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="47" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="12" selection-start="48" selection-end="48" vertical-scroll-proportion="0.0">
@@ -465,12 +460,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="24" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0" />
+        <state line="23" column="50" selection-start="869" selection-end="869" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="65" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.8616188">
+        <state line="35" column="45" selection-start="1305" selection-end="1305" vertical-scroll-proportion="0.5483029">
           <folding />
         </state>
       </provider>

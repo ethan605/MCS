@@ -3,57 +3,10 @@
 {% load url from future %}
 
 {% block js %}
-	<script type="text/javascript" src="/static/jquery.form.js"></script>
-	<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/static/mcs.user.sign.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("table,tr,td").addClass("noborder");
-			$("#signin-notice").dialog({
-				autoOpen: false,
-				modal: true,
-				resizable: false,
-				buttons: {
-					"OK": function() { 
-						$(this).dialog("close"); 
-						if ($(this).html() == "User authenticated")
-							$(location).attr("href", "/");
-					}
-				}
-			});
-			$("#signin-form").dialog({
-				autoOpen: false,
-				modal: true,
-				resizable: false,
-			});
-			$("#signin-button").click(function() {
-				$("#signin-form").dialog("open");
-				return false;
-			});
-			$("#id_username,#id_password").addClass("required");
-			function formValidate() {
-				return $("form").validate({
-					errorClass: "text-error",
-					validClass: "text-success",
-					errorElement: "span",
-					errorPlacement: function(error, element) {
-						$("#error-show").html(error);
-					}
-				}).form();
-			}
-			$("form").ajaxForm({
-				type: "POST",
-				dataType: "json",
-				beforeSubmit: formValidate,
-				success: function(data) {
-					$("#error-show").html(data.res_username + data.res_password).show();
-					if (data.res_username == "" && data.res_password == "") {
-						if (data.res_blocked)
-							$("#signin-notice").html(data.res_blocked).dialog("open");
-						else
-							$("#signin-notice").html("User authenticated").dialog("open");
-					}
-				}
-			});
 		});
 	</script>
 {% endblock %}
@@ -71,12 +24,12 @@
 		<h2>Hello {{ user.username }}</h2>
 	{% else %}
 		<h2>Hello stranger, you're not signed in</h2>
-		<p>Please <a class="link" href="/signin/">sign in</a> or <a class="link" href="/signup/">sign up</a> for a new account now</p>
+		<p>Please <a class="link" id="signin-button" href="#">sign in</a> or <a class="link" href="/signup/">sign up</a> for a new account now</p>
 	{% endif %}
 {% endblock %}
 
 {% block js_components %}
-	<div id="signin-form" title="User sign in">
+	<div id="signin-dialog" title="User sign in">
 		<form class="block-center" id="signin-form" action="/signin/" method="POST">
 			{% csrf_token %}
 			<table>
@@ -97,5 +50,5 @@
 			<input class="button" type="submit" value="Submit" />
 		</form>
 	</div>
-	<div id="signin-notice" class="center" title="Authenticated"></div>
+	<div class="center" id="signin-notice" title="Authenticated"></div>
 {% endblock %}

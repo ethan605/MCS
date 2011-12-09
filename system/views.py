@@ -2,7 +2,7 @@
 import email
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
-from MCS.system.forms import SignInForm, ShopSignUpForm
+from MCS.system import forms
 from django.http import HttpResponseRedirect, HttpResponse
 from MCS.system.models import Shop
 from django.contrib.auth import authenticate, login, logout
@@ -11,9 +11,8 @@ from django.utils import simplejson
 
 def index(request):
     """ trang chu"""
-    form = SignInForm()
+    form = forms.SignInForm()
     return render_to_response("index.html", {"user":request.user, "form":form}, context_instance=RequestContext(request))
-#    return render_to_response("index.html", {"user": request.user})
 
 def sign_in(request):
     """ trang dang nhap"""
@@ -34,13 +33,15 @@ def sign_in(request):
         response_dict = {"res_username": res_username, "res_password": res_password}
 
         if res_username == "" and res_password == "":
-            if "remember" in request.POST and not request.POST["remember"]:
+            if not "remember" in request.POST:
                 request.session.set_expiry(0)
             user = authenticate(username=request.POST["username"], password=request.POST["password"])
             if user.is_active:
                 login(request, user)
+                res_result = "User authenticated"
             else:
-                response_dict.update({"res_blocked": "User is blocked"})
+                res_result = "User is blocked"
+            response_dict.update({"res_result": res_result})
 
         res_data = simplejson.dumps(response_dict)
         return HttpResponse(res_data, mimetype="application/json")
@@ -84,7 +85,7 @@ def signup(request):
 
     if request.user.is_authenticated():
         return HttpResponseRedirect("/")
-    form = ShopSignUpForm()
+    form = forms.ShopSignUpForm()
     return render_to_response("shop_signup.html", {"form": form}, context_instance=RequestContext(request))
 
 def admin(request):
@@ -96,9 +97,26 @@ def admin(request):
 
 def usercp(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect("/signin/")
+        return HttpResponseRedirect("/")
 
-    return render_to_response("usercp.html", {"user": request.user})
+    response_dict = {"user":request.user}
+    changePassForm = forms.ChangePassForm()
+    response_dict.update({"changePassForm": changePassForm})
+    return render_to_response("usercp.html", response_dict, context_instance=RequestContext(request))
+
+def changepass(request):
+    if request.is_ajax():
+        user = request.user
+        if user.check_password(request.POST["current_pass"]):
+            user.set_password(request.POST["confirm_pass"])
+            user.save()
+            logout(request)
+            res_data = simplejson.dumps({})
+        else:
+            res_current_pass = "Current password not match"
+            response_dict = {"res_current_pass": res_current_pass}
+            res_data = simplejson.dumps(response_dict)
+        return HttpResponse(res_data, mimetype="application/json")
 
 def success(request):
     return render_to_response("success.html")

@@ -11,7 +11,9 @@ from django.utils import simplejson
 
 def index(request):
     """ trang chu"""
-    return render_to_response("index.html", {"user": request.user})
+    form = SignInForm()
+    return render_to_response("index.html", {"user":request.user, "form":form}, context_instance=RequestContext(request))
+#    return render_to_response("index.html", {"user": request.user})
 
 def sign_in(request):
     """ trang dang nhap"""
@@ -43,37 +45,17 @@ def sign_in(request):
         res_data = simplejson.dumps(response_dict)
         return HttpResponse(res_data, mimetype="application/json")
 
-#    if request.method == "POST":
-#        print request.POST
-#        form = SignInForm(data=request.POST)
-#        if form.is_valid():
-#            username = form.cleaned_data["username"]
-#            password = form.cleaned_data["password"]
-#            if not form.cleaned_data["remember"]:
-#                request.session.set_expiry(0)
-#            user = authenticate(username=username, password=password)
-#            if user is not None:
-#                if user.is_active:
-#                    login(request,user)
-#                    return HttpResponseRedirect("/")
-#                else:
-#                    message = user.username + " is blocked"
-#                    return render_to_response("failure.html", {"message":message})
-
     form = SignInForm()
     return render_to_response("sign_in.html", {"form": form}, context_instance=RequestContext(request))
 
 def sign_out(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect("/")
-    
-    logout(request)
-    return render_to_response("sign_out.html")
+    if request.is_ajax():
+        logout(request)
+        return HttpResponse()
 
 def signup(request):
     """ cua hang dang ki"""
     if request.is_ajax():
-        print request.POST
         try:
             User.objects.get(username__exact=request.POST["username"])
         except User.DoesNotExist:
@@ -92,26 +74,13 @@ def signup(request):
         res_data = simplejson.dumps(response_dict)
 
         if res_username == "" and res_email == "":
-            print request.POST
             form = ShopSignUpForm(data=request.POST)
             form.is_valid()
             form.save()
             user = authenticate(username=request.POST["username"], password=request.POST["password"])
             login(request, user)
+        
         return HttpResponse(res_data, mimetype="application/json")
-
-    if request.method == "POST":
-        print request.POST
-
-#    if request.method == "POST":
-#        form = ShopSignUpForm(data=request.POST)
-#        if form.is_valid():
-#            form.save()
-#            username = form.cleaned_data["username"]
-#            password = form.cleaned_data["password"]
-#            user = authenticate(username=username, password=password)
-#            login(request, user)
-#            return render_to_response("success.html")
 
     if request.user.is_authenticated():
         return HttpResponseRedirect("/")
@@ -132,7 +101,7 @@ def usercp(request):
     return render_to_response("usercp.html", {"user": request.user})
 
 def success(request):
-    render_to_response("success.html")
+    return render_to_response("success.html")
 
 def ajax(request):
     if request.is_ajax():
@@ -150,7 +119,6 @@ def ajax(request):
 
         response_dict = {"res_username": res_username, "res_password": res_password}
         res_data = simplejson.dumps(response_dict)
-        print res_data
         return HttpResponse(res_data, mimetype="application/json")
 
     return render_to_response("ajax.html")

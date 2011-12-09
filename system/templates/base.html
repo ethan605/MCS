@@ -5,6 +5,35 @@
 			<!-- for extra meta tags -->
 		{% endblock %}
 		<script type="text/javascript" src="/static/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="/static/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".button").attr("class", "ui-state-default ui-corner-all ui-button ui-button-ex");
+				$(".link").attr("class", "ui-state-default ui-corner-all ui-button ui-button-link");
+				$("#signout-notice").dialog({
+					autoOpen: false,
+					modal: true,
+					resizable: false,
+					buttons: {
+						"OK": function() {
+							$(this).dialog("close");
+							$(location).attr("href", "/");
+						}
+					}
+				});
+				$("#signout-button").click(function() {
+					$.ajax({
+						type: "POST",
+						url: "/signout/",
+						success: function(data) {
+							$("#signout-notice").html("You're successfully signed out!").dialog("open");
+						}
+					});
+					return false;
+				});
+			});
+		</script>
 		{% block js %}
 			<!-- for extra javascript -->
 		{% endblock %}
@@ -14,6 +43,8 @@
 		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection" />
 		<![endif]-->
 		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/static/jquery-ui-1.8.16.custom.css" type="text/css" />
+		<link rel="stylesheet" href="/static/jquery-ui-1.8.16.custom.extra.css" type="text/css" />
 		{% block css %}
 			<!-- for extra css -->
 		{% endblock %}
@@ -22,17 +53,17 @@
 	<body>
 		<div class="container" id="header">
 			<div class="span-5">
-				<a href="{% url system.views.index %}">Index</a>
+				<a class="link" href="{% url system.views.index %}">Index</a>
 				{% block header_url %}{% endblock %}
 			</div>
 			<div class="span-5 push-13 last" id="header-buttons">
 				{% if user.is_authenticated %}
 					{% if user.is_superuser %}
-						<script type="text/javascript">$("#header-buttons").attr("class", "span-6 push-12 last");</script>
+						<script type="text/javascript">$("#header-buttons").removeClass("span-5 push-13").addClass("span-6 push-12");</script>
 						<a class="button" href="/admin/">Admin</a>	
 					{% endif %}
 					<a class="button" href="/usercp/">User CP</a>
-					<a class="button" href="/signout/">Sign out</a>
+					<a class="button" id="signout-button" href="#">Sign out</a>
 				{% else %}
 					{% block header_buttons %}{% endblock %}
 				{% endif %}
@@ -44,5 +75,10 @@
 		<div class="container" id="footer">
 			<div class="center">Copyright (c) MCS</div>
 		</div>
+		
+		<!-- html components for javascript -->
+		<div id="signout-notice" class="center" title="User sign out"></div>
+		{% block js_components %}
+		{% endblock %}
 	</body>
 </html>

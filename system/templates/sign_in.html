@@ -3,14 +3,22 @@
 {% load url from future %}
 
 {% block js %}
-	<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>
 	<script type="text/javascript" src="/static/jquery.form.js"></script>
 	<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("table,tr,td").addClass("noborder");
+			$("#signin-dialog-notice").dialog({
+				autoOpen: false,
+				modal: true,
+				buttons: {
+					"OK": function() { 
+						$(this).dialog("close"); 
+						$(location).attr("href", "/");
+					}
+				}
+			});
 			$("#id_username,#id_password").addClass("required");
-
 			function formValidate() {
 				return $("form").validate({
 					errorClass: "text-error",
@@ -30,11 +38,9 @@
 					$("#password-error").html(data.res_password).show();
 					if (data.res_username == "" && data.res_password == "") {
 						if (data.res_blocked)
-							alert(data.res_blocked);
+							$("#signin-dialog-notice").html(data.res_blocked).dialog("open");
 						else
-							alert("User authenticated");
-						$("#signin-form").hide();
-						$(location).attr("href", "/");
+							$("#signin-dialog-notice").html("User authenticated").dialog("open");
 					}
 				}
 			});
@@ -43,28 +49,30 @@
 {% endblock %}
 
 {% block title %}MCS - Sign in{% endblock %}
-
-{% block header_buttons %}<a class="button" href="/shop/signup/">Sign up</a>{% endblock %}
+{% block header_buttons %}<a class="button" href="/signup/">Sign up</a>{% endblock %}
 
 {% block content %}
-<form class="block-center" id="signin-form" action="" method="POST">
-	{% csrf_token %}
-	<table>
-		<tr>
-			<td><strong>Username:</strong></td>
-			<td>{{ form.username }}</td>
-			<td class="text-error" id="username-error"></td>
-		</tr>
-		<tr>
-			<td><strong>Password:</strong></td>
-			<td>{{ form.password }}</td>
-			<td class="text-error" id="password-error"></td>
-		</tr>
-	</table>
-	<p>
-		{{ form.remember }}
-		<label for="remember">Remember me</label>
-	</p>
-	<input id="submit" type="submit" value="Submit" />
-</form>
+<div id="signin-form">
+	<form class="block-center" id="signin-form" action="" method="POST">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td><strong>Username:</strong></td>
+				<td>{{ form.username }}</td>
+				<td class="text-error" id="username-error"></td>
+			</tr>
+			<tr>
+				<td><strong>Password:</strong></td>
+				<td>{{ form.password }}</td>
+				<td class="text-error" id="password-error"></td>
+			</tr>
+		</table>
+		<p>
+			{{ form.remember }}
+			<label for="remember">Remember me</label>
+		</p>
+		<input class="button" type="submit" value="Submit" />
+	</form>
+</div>
+<div id="signin-dialog-notice"></div>
 {% endblock %}

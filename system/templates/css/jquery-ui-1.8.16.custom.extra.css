@@ -1,0 +1,10 @@
+/*
+ * Extra css styles from jquery UI custom css
+ */
+
+ /*
+  * Button
+  */
+ .ui-button-ex {padding: .4em 1em;}
+ .ui-button-link {padding: 0 .4em 0 .4em;}
+ .ui-button-text-icon-ex { padding: .2em .4em .2em 2.2em; }

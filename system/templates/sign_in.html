@@ -3,8 +3,43 @@
 {% load url from future %}
 
 {% block js %}
-	<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>
+	<script type="text/javascript" src="/static/jquery.form.js"></script>
+	<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("table,tr,td").addClass("noborder");
+			$("#id_username,#id_password").addClass("required");
+
+			function formValidate() {
+				return $("form").validate({
+					errorClass: "text-error",
+					validClass: "text-success",
+					errorElement: "span",
+					errorPlacement: function(error, element) {
+						element.parent("td").next("td").html(error);
+					}
+				}).form();
+			}
+			$("form").ajaxForm({
+				type: "POST",
+				dataType: "json",
+				beforeSubmit: formValidate,
+				success: function(data) {
+					$("#username-error").html(data.res_username).show();
+					$("#password-error").html(data.res_password).show();
+					if (data.res_username == "" && data.res_password == "") {
+						if (data.res_blocked)
+							alert(data.res_blocked);
+						else
+							alert("User authenticated");
+						$("#signin-form").hide();
+						$(location).attr("href", "/");
+					}
+				}
+			});
+		});
+	</script>
 {% endblock %}
 
 {% block title %}MCS - Sign in{% endblock %}
@@ -12,18 +47,18 @@
 {% block header_buttons %}<a class="button" href="/shop/signup/">Sign up</a>{% endblock %}
 
 {% block content %}
-<form class="block-center" action="{% url 'system.views.sign_in' %}" method="POST">
+<form class="block-center" id="signin-form" action="" method="POST">
 	{% csrf_token %}
 	<table>
 		<tr>
 			<td><strong>Username:</strong></td>
 			<td>{{ form.username }}</td>
-			<td><label class="text-error" id="username-error"></label></td>
+			<td class="text-error" id="username-error"></td>
 		</tr>
 		<tr>
 			<td><strong>Password:</strong></td>
 			<td>{{ form.password }}</td>
-			<td><label class="text-error" id="password-error"></label></td>
+			<td class="text-error" id="password-error"></td>
 		</tr>
 	</table>
 	<p>
@@ -31,31 +66,5 @@
 		<label for="remember">Remember me</label>
 	</p>
 	<input id="submit" type="submit" value="Submit" />
-	<script type="text/javascript">
-		$("table,tr,td").addClass("noborder");
-		$("#id_username").blur(function(){
-			if ($("#id_username").val() != "")
-				$.ajax({
-					type: "POST",
-					url: "/ajax/",
-					data: {username: $("#id_username").val()},
-					success: function(data){
-						$("#username-error").html(data == "validated" ? "" : data);
-					}
-				});
-			else
-				$("#username-error").html("This field is required");
-		});
-		$("#id_password").blur(function(){
-			$.ajax({
-				type: "POST",
-				url: "/ajax/",
-				data: {username: $("#id_username").val(), password: $("#id_password").val()},
-				success: function(data){
-					$("#password-error").html(data == "validated" ? "" : data);
-				}
-			});
-		});
-	</script>
 </form>
 {% endblock %}

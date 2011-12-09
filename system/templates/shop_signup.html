@@ -2,7 +2,54 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block js %}<script type="text/javascript" src="/static/jquery.validate.min.js"></script>{% endblock %}
+{% block js %}
+	<script type="text/javascript" src="/static/django.x-csrftoken.js"></script>
+	<script type="text/javascript" src="/static/jquery.form.js"></script>
+	<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("table,tr,td").addClass("noborder");
+			$("#id_display_name,#id_username,#id_address").addClass("required alphanumeric");
+			$("#id_password,#id_re_password").addClass("required").attr("minlength", "6");
+			$("#id_re_password").attr("equalTo", "#id_password");
+			$("#id_email,#id_re_email").addClass("required email");
+			$("#id_re_email").attr("equalTo", "#id_email");
+			$("#id_phone_number").addClass("required digits");
+
+			function formValidate() {
+				return $("form").validate({
+					errorClass: "text-error",
+					validClass: "text-success",
+					errorElement: "span",
+					errorPlacement: function(error, element) {
+						element.parent("td").next("td").html(error);
+					}
+				}).form();
+			}
+			$("form").ajaxForm({
+				type: "POST",
+				dataType: "json",
+				beforeSubmit: formValidate,
+				success: function(data) {
+					$("#username-error").html(data.res_username).show();
+					$("#email-error").html(data.res_email).show();
+					if (data.res_username == "" && data.res_email == "") {
+						alert("User registered");
+						$(location).attr("href", "/signup/success/");
+					}
+					// if (data.res_username != "")
+					// 	alert(data.res_username);
+					// else if (data.res_email != "")
+					// 	alert(data.res_email);
+					// else {
+					// 	alert("User registered");
+					// 	$(location).attr("href", "/");
+					// }
+				}
+			});
+		});
+	</script>
+{% endblock %}
 {% block title %}MCS - User sign up{% endblock %}
 
 {% block header_buttons %}<a class="button" href="/signin/">Sign in</a>{% endblock %}
@@ -20,43 +67,27 @@
 				<tr>
 					<td><strong>Tên đăng ký:</strong> </td>
 					<td>{{ form.username }}</td>
-					{% if form.username.errors %}
-						<td class="text-error">{{ form.username.errors }}</td>
-					{% else %}
-						<td></td>
-					{% endif %}
+					<td class="text-error" id="username-error"></td>
 				</tr>
 				<tr>
 					<td><strong>Mật khẩu:</strong></td>					
 					<td>{{ form.password }}</td>
-					{% if form.password.errors %}
-						<td class="text-error">{{ form.password.errors }}</td>
-					{% else %}
-						<td></td>
-					{% endif %}
+					<td></td>
 				</tr>
 				<tr>
 					<td><strong>Nhập lại mật khẩu:</strong></td>
 					<td>{{ form.re_password }}</td>
-					{% if form.re_password.errors %}
-						<td class="text-error">{{ form.re_password.errors }}</td>
-					{% else %}
-						<td></td>
-					{% endif %}
+					<td></td>
 				</tr>
 				<tr>
 					<td><strong>Email:</strong></td>
 					<td>{{ form.email }}</td>
-					<td></td>
+					<td class="text-error" id="email-error"></td>
 				</tr>
 				<tr>
 					<td><strong>Nhập lại Email:</strong></td>
 					<td>{{ form.re_email }}</td>
-					{% if form.re_email.errors %}
-						<td class="text-error">{{ form.re_email.errors }}</td>
-					{% else %}
-						<td></td>
-					{% endif %}
+					<td></td>
 				</tr>
 				<tr>
 					<td><strong>Địa chỉ:</strong></td>
@@ -69,24 +100,7 @@
 					<td></td>
 				</tr>
 			</table>
-			<input class="button test"  type="submit" value="Submit" id="submit"/>
+			<input type="submit" value="Submit" id="submit"/>
 		</form>
 	</div>
-	<script type="text/javascript">
-		$("table,tr,td").addClass("noborder");
-		$("#id_display_name,#id_username,#id_address").addClass("required");
-		$("#id_password,#id_re_password").addClass("required").attr("minlength", "6");
-		$("#id_re_password").attr("equalTo", "#id_password");
-		$("#id_email,#id_re_email").addClass("required email");
-		$("#id_phone_number").addClass("required digits");
-		$("form").validate({
-			errorClass: "text-error",
-			wrapper: "ul",
-			errorElement: "li",
-			errorPlacement: function(error, element) {
-				element.parent("td").next("td").html(error);
-				$("ul").css("margin-bottom", "0");
-			}
-		});
-	</script>
 {% endblock %}

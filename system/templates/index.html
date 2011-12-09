@@ -6,7 +6,7 @@
 
 {% block header_buttons %}
 	<a class="button" href="/signin/">Sign in</a>
-	<a class="button" href="/shop/signup/">Sign up</a>
+	<a class="button" href="/signup/">Sign up</a>
 {% endblock %}
 
 {% block content%}
@@ -15,6 +15,6 @@
 		<h2>Hello {{ user.username }}</h2>
 	{% else %}
 		<h2>Hello stranger, you're not signed in</h2>
-		<p>Please <a href="/signin/">sign in</a> or <a href="/shop/signup/">sign up</a> for a new account now</p>
+		<p>Please <a href="/signin/">sign in</a> or <a href="/signup/">sign up</a> for a new account now</p>
 	{% endif %}
 {% endblock %}

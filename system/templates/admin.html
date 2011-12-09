@@ -13,6 +13,7 @@
 			<td>Email</td>
 			<td>Address</td>
 			<td>Phone Number</td>
+			<td>Status</td>
 		</tr>
 		{% for shop in shops%}
 			<tr>
@@ -22,7 +23,10 @@
 				<td>{{ shop.email }}</td>
 				<td>{{ shop.address }}</td>
 				<td>{{ shop.phone_number }}</td>
+				<td id="status">{{ shop.is_active }}</td>
 			</tr>
 		{%endfor%}
 	</table>
+	<script type="text/javascript">
+	</script>
 {% endblock %}

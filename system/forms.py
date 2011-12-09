@@ -40,35 +40,35 @@ class ShopSignUpForm(forms.Form):
     address = forms.CharField()
     phone_number = forms.IntegerField()
 
-    def clean_username(self):
-        try:
-            Shop.objects.get(username = self.cleaned_data["username"])
-        except Shop.DoesNotExist:
-            return self.cleaned_data["username"]
-        raise forms.ValidationError("User name has used")
+#    def clean_username(self):
+#        try:
+#            Shop.objects.get(username = self.cleaned_data["username"])
+#        except Shop.DoesNotExist:
+#            return self.cleaned_data["username"]
+#        raise forms.ValidationError("User name has used")
         
-    def clean_password(self):
-        if "password" in self.cleaned_data:
-            if len(self.cleaned_data["password"]) < 6:
-                raise forms.ValidationError("Password is to short")
-            else:
-                return self.cleaned_data["password"]
+#    def clean_password(self):
+#        if "password" in self.cleaned_data:
+#            if len(self.cleaned_data["password"]) < 6:
+#                raise forms.ValidationError("Password is to short")
+#            else:
+#                return self.cleaned_data["password"]
         
-    def clean_re_password(self):
-        if "password" in self.cleaned_data  and "re_password" in self.cleaned_data:
-            if self.cleaned_data["password"] != self.cleaned_data["re_password"]:
-                raise forms.ValidationError("Password is not match")
-            else:
-                return self.cleaned_data["re_password"]
+#    def clean_re_password(self):
+#        if "password" in self.cleaned_data  and "re_password" in self.cleaned_data:
+#            if self.cleaned_data["password"] != self.cleaned_data["re_password"]:
+#                raise forms.ValidationError("Password is not match")
+#            else:
+#                return self.cleaned_data["re_password"]
         
-    def clean_email(self):
-        return self.cleaned_data["email"]
-    
-    def clean_re_email(self):
-        if "email" in self.cleaned_data and "re_email" in self.cleaned_data:
-            if self.cleaned_data["email"] != self.cleaned_data["re_email"]:
-                raise forms.ValidationError("Email is not match")
-            return self.cleaned_data["re_email"]
+#    def clean_email(self):
+#        return self.cleaned_data["email"]
+#
+#    def clean_re_email(self):
+#        if "email" in self.cleaned_data and "re_email" in self.cleaned_data:
+#            if self.cleaned_data["email"] != self.cleaned_data["re_email"]:
+#                raise forms.ValidationError("Email is not match")
+#            return self.cleaned_data["re_email"]
 
     def save(self):
         new_user = Shop()

@@ -6,24 +6,7 @@ $(document).ready(function() {
 	/*
 	 * Sign in
 	 */
-	$("#signin-notice").dialog({
-		autoOpen: false,
-		modal: true,
-		resizable: false,
-		buttons: {
-			"OK": function() { 
-				$(this).dialog("close"); 
-				if ($(this).html() == "User authenticated")
-					$(location).attr("href", "/");
-			}
-		}
-	});
-	$("#signin-dialog").dialog({
-		autoOpen: false,
-		modal: true,
-		resizable: false,
-	});
-	$("a#signin-button").click(function() {
+	$("[id=signin-button]").click(function() {
 		$("#signin-dialog").dialog("open");
 		return false;
 	});
@@ -45,9 +28,12 @@ $(document).ready(function() {
 		success: function(data) {
 			$("#signin-form #error-show").html(data.res_username + data.res_password).show();
 			if (data.res_result) {
-				$("#signin-notice").html(data.res_result).dialog("open");
-				if (data.res_result == "User authenticated")
+				if (data.res_result == "User authenticated") {
 					$("#signin-dialog").dialog("close");
+					$(location).attr("href", "/");
+				}
+				else
+					$("#notice-dialog").html(data.res_result).dialog("open");
 			}
 		}
 	});
@@ -55,18 +41,18 @@ $(document).ready(function() {
 	/*
 	 * Sign out
 	 */
-	$("#signout-confirm").dialog({
+	$("#signout-dialog").dialog({
 		autoOpen: false,
-		modal: true,
-		resizable: false,
 		buttons: {
 			"OK": function() {
 				$.ajax({
 					type: "POST",
 					url: "/signout/",
 					success: function(data) {
-						$("#signout-confirm").dialog("close");
-						$("#signout-notice").html("You're successfully signed out!").dialog("open");
+						if (data == "") {
+							$("#signout-confirm-dialog").dialog("close");
+							$(location).attr("href", "/");
+						}
 					}
 				});
 			},
@@ -75,19 +61,8 @@ $(document).ready(function() {
 			}
 		}
 	});
-	$("#signout-notice").dialog({
-		autoOpen: false,
-		modal: true,
-		resizable: false,
-		buttons: {
-			"OK": function() {
-				$(this).dialog("close");
-				$(location).attr("href", "/");
-			}
-		}
-	});
 	$("#signout-button").click(function() {
-		$("#signout-confirm").html("Are you really want to sign out?").dialog("open");
+		$("#signout-dialog").html("Are you really want to sign out?").dialog("open");
 		return false;
 	});
 });

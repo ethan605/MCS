@@ -3,12 +3,8 @@
 {% load url from future %}
 
 {% block js %}
+	<script type="text/javascript" src="/static/jquery.validate.additional-methods.min.js"></script>
 	<script type="text/javascript" src="/static/mcs.usercp.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("table,tr,td").addClass("noborder");
-		});
-	</script>
 {% endblock %}
 
 {% block title %}MCS - User Control Panel{% endblock %}
@@ -21,7 +17,7 @@
 {% endblock %}
 
 {% block js_components %}
-	<div class="block-center" id="changepass-dialog" title="Change password">
+	<div class="block-center dialog" id="changepass-dialog" title="Change password">
 		<form id="changepass-form" action="/usercp/changepass/" method="post">
 			{% csrf_token %}
 			<table>
@@ -42,5 +38,5 @@
 			<input class="button" type="submit" value="Submit" />
 		</form>
 	</div>
-	<div class="center" id="changepass-notice" title="Notice"></div>
+	<div class="center dialog" id="changepass-notice" title="Notice"></div>
 {% endblock %}

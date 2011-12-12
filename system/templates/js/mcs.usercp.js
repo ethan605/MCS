@@ -3,25 +3,17 @@
  */
 
 $(document).ready(function() {
+	$("table,tr,td").addClass("noborder");
 	/*
 	 * Change password
 	 */
 	$("#changepass-notice").dialog({
-		autoOpen: false,
-		modal: true,
-		resizable: false,
 		buttons: {
 			"OK": function() {
 				$(this).dialog("close");
 				$(location).attr("href", "/");
 			}
 		}
-	});
-	$("#changepass-dialog").dialog({
-		autoOpen: false,
-		modal: true,
-		resizable: false,
-		width: 350
 	});
 	$("#changepass-button").click(function() {
 		$("#changepass-dialog").dialog("open");

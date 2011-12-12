@@ -3,29 +3,9 @@
 {% load url from future %}
 
 {% block js %}
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#signout-notice").dialog({
-				autoOpen: false,
-				modal: true,
-				resizable: false,
-				buttons: {
-					"OK": function() {
-						$(this).dialog("close");
-						$(location).attr("href", "/");
-					}
-				}
-			});
-			$("#button").click(function() {
-				$.ajax({
-					type: "POST",
-					url: "/signout/",
-					success: function(data) {
-						$("#signout-notice").html("You're successfully signed out!").dialog("open");
-					}
-				});
-				return false;
-			});
+	<script type="text/javascript" src="/static/jquery.tablesorter.min.js">
+		$(document).ready(function() { 
+			$("#myTable").tablesorter();
 		});
 	</script>
 {% endblock %}
@@ -34,6 +14,58 @@
 {% endblock %}
 
 {% block content %}
-	<div id="signout-notice" class="center" title="User sign out"></div>
-	<a class="button" id="button" href="#">Click</a>
+	<table id="myTable" class="tablesorter" border="0" cellpadding="0" cellspacing="1">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Age</th>
+				<th>Total</th>
+				<th>Discount</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Peter</td>
+				<td>Parker</td>
+				<td>28</td>
+				<td>$9.99</td>
+				<td>20%</td>
+				<td>Jul 6, 2006 8:14 AM</td>
+			</tr>
+			<tr>
+				<td>John</td>
+				<td>Hood</td>
+				<td>33</td>
+				<td>$19.99</td>
+				<td>25%</td>
+				<td>Dec 10, 2002 5:14 AM</td>
+			</tr>
+			<tr>
+				<td>Clark</td>
+				<td>Kent</td>
+				<td>18</td>
+				<td>$15.89</td>
+				<td>44%</td>
+				<td>Jan 12, 2003 11:14 AM</td>
+			</tr>
+			<tr>
+				<td>Bruce</td>
+				<td>Almighty</td>
+				<td>45</td>
+				<td>$153.19</td>
+				<td>44%</td>
+				<td>Jan 18, 2001 9:12 AM</td>
+			</tr>
+			<tr>
+				<td>Bruce</td>
+				<td>Evans</td>
+				<td>22</td>
+				<td>$13.19</td>
+				<td>11%</td>
+				<td>Jan 18, 2007 9:12 AM</td>
+			</tr>
+		</tbody>
+	</table>
 {% endblock %}

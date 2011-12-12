@@ -16,7 +16,7 @@
 			$("#id_re_email").attr("equalTo", "#id_email");
 			$("#id_phone_number").addClass("required digits");
 
-			$("#signup-dialog-notice").dialog({
+			$("#signup-notice-dialog").dialog({
 				autoOpen: false,
 				modal: true,
 				buttons: {
@@ -47,7 +47,7 @@
 						$("#email-error").html(data.res_email).show();
 					}
 					else
-						$("#signup-dialog-notice").html("User's successfully registered").dialog("open");
+						$("#signup-notice-dialog").html("User's successfully registered").dialog("open");
 				}
 			});
 		});
@@ -55,11 +55,11 @@
 {% endblock %}
 
 {% block title %}MCS - User sign up{% endblock %}
-{% block header_buttons %}<a class="button" id="signin-button" href="#">Sign in</a>{% endblock %}
+{% block header_buttons %}<button id="signin-button">Sign in</button>{% endblock %}
 
 {% block content %}
-<div id="signup-dialog">
-	<form class="block-center" id="signup-form" action="" method="post">
+<div class="block-center" id="signup-dialog">
+	<form id="signup-form" action="" method="post">
 		{% csrf_token %}
 		<table>
 			<tr>
@@ -106,11 +106,11 @@
 		<input class="button" type="submit" value="Submit" id="submit"/>
 	</form>
 </div>
-<div id="signup-dialog-notice"></div>
+<div id="signup-notice-dialog"></div>
 {% endblock %}
 
 {% block js_components %}
-	<div id="signin-dialog" title="User sign in">
+	<div class="dialog" id="signin-dialog" title="User sign in">
 		<form class="block-center" id="signin-form" action="/signin/" method="POST">
 			{% csrf_token %}
 			<table>
@@ -131,5 +131,4 @@
 			<input class="button" type="submit" value="Submit" />
 		</form>
 	</div>
-	<div id="signin-notice" class="center" title="Authenticated"></div>
 {% endblock %}

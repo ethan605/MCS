@@ -10,12 +10,7 @@
 		<script type="text/javascript" src="/static/jquery.form.js"></script>
 		<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="/static/mcs.user.sign.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$(".button").attr("class", "ui-state-default ui-corner-all ui-button ui-button-ex");
-				$(".link").attr("class", "ui-state-default ui-corner-all ui-button ui-button-link");
-			});
-		</script>
+		<script type="text/javascript" src="/static/mcs.base.js"></script>
 		{% block js %}
 			<!-- for extra javascript -->
 		{% endblock %}
@@ -25,8 +20,8 @@
 		  <link rel="stylesheet" href="/static/ie.css" type="text/css" media="screen, projection" />
 		<![endif]-->
 		<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="/static/jquery-ui-1.8.16.custom.css" type="text/css" />
-		<link rel="stylesheet" href="/static/jquery-ui-1.8.16.custom.extra.css" type="text/css" />
+		<link rel="stylesheet" href="/static/jquery-ui-1.8.16.lightness.css" type="text/css" />
+		<link rel="stylesheet" href="/static/jquery-ui-1.8.16.extra.css" type="text/css" />
 		{% block css %}
 			<!-- for extra css -->
 		{% endblock %}
@@ -34,18 +29,18 @@
 	</head>
 	<body>
 		<div class="container" id="header">
-			<div class="span-5">
+			<div class="span-5 last">
 				<a class="link" href="{% url system.views.index %}">Index</a>
 				{% block header_url %}{% endblock %}
 			</div>
-			<div class="span-5 push-13 last" id="header-buttons">
+			<div class="span-4 push-15 last" id="header-buttons">
 				{% if user.is_authenticated %}
 					{% if user.is_superuser %}
-						<script type="text/javascript">$("#header-buttons").removeClass("span-5 push-13").addClass("span-6 push-12");</script>
+						<script type="text/javascript">$("#header-buttons").removeClass("span-4 push-15").addClass("span-6 push-13");</script>
 						<a class="button" href="/admin/">Admin</a>	
 					{% endif %}
 					<a class="button" href="/usercp/">User CP</a>
-					<a class="button" id="signout-button" href="#">Sign out</a>
+					<button id="signout-button">Sign out</button>
 				{% else %}
 					{% block header_buttons %}{% endblock %}
 				{% endif %}
@@ -59,8 +54,8 @@
 		</div>
 		
 		<!-- html components for javascript -->
-		<div class="center" id="signout-confirm" title="Confirm"></div>
-		<div class="center" id="signout-notice" title="User sign out"></div>
+		<div class="center dialog" id="signout-dialog" title="Confirm"></div>
+		<div class="center dialog" id="notice-dialog" title="Notice"></div>
 		{% block js_components %}
 		{% endblock %}
 	</body>

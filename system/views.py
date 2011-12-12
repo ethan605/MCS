@@ -92,6 +92,17 @@ def admin(request):
     """ trang cua admin"""
     if not request.user.is_authenticated() or not request.user.is_superuser:
         return HttpResponseRedirect("/")
+
+    if request.is_ajax():
+        if request.POST["type"] == "set-status":
+            try:
+                user = User.objects.get(id__exact=request.POST["id"])
+            except User.DoesNotExist:
+                return HttpResponse("User does not exist")
+            user.is_active = not user.is_active
+            user.save()
+            return HttpResponse("User's status has been updated")
+
     shops = Shop.objects.all()
     return render_to_response("admin.html", {"user":request.user, "shops":shops})
 

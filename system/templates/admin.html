@@ -2,33 +2,120 @@
 {% load i18n %}
 {% load url from future %}
 
+{% block js %}
+	<script type="text/javascript" src="/static/mcs.admin.js"></script>
+	<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+{% endblock %}
+
 {% block title %}MCS - User Control Panel{% endblock %}
 
 {% block header_url %}<a class="link" href="/admin/">Admin</a>{% endblock %}
 
 {% block content %}
-	<table class="center">
-		<tr>
-			<td>Display Name</td>
-			<td>User Name</td>
-			<td>Password</td>
-			<td>Email</td>
-			<td>Address</td>
-			<td>Phone Number</td>
-			<td>Status</td>
-		</tr>
-		{% for shop in shops%}
-			<tr>
-				<td>{{ shop.display_name }}</td>
-				<td>{{ shop.username }}</td>
-				<td>{{ shop.password }}</td>
-				<td>{{ shop.email }}</td>
-				<td>{{ shop.address }}</td>
-				<td>{{ shop.phone_number }}</td>
-				<td id="status">{{ shop.is_active }}</td>
-			</tr>
-		{%endfor%}
-	</table>
-	<script type="text/javascript">
-	</script>
+	<div class="block-center">
+		<table class="center tablesorter" id="all-table">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Username</td>
+					<td>Password</td>
+					<td>Email</td>
+					<td>Status</td>
+					<td>Details</td>
+					<td>
+						<input type="checkbox" id="check-all" />
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for shop in shops%}
+					<tr>
+						<td id="id">{{ shop.id }}</td>
+						<td id="username"><a class="link change-content username" id="{{ shop.id }}" href="#">{{ shop.username }}</a></td>
+						<td id="password"><a class="link change-content password" id="{{ shop.id }}" href="#">Change password</a></td>
+						<td id="email"><a class="link change-content email" id="{{ shop.id }}" href="#">{{ shop.email }}</a></td>
+						<td id="status"><a class="link set-status" mode="{{ shop.is_active }}" id="{{ shop.id }}" href="#"></a></td>
+						<td id="details"><a class="link details" id="{{ shop.id }}" href="#">Details</a></td>
+						<td><input type="checkbox" class="check" id="{{ shop.id }}" /></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr class="noborder">
+					<td class="noborder"></td>
+					<td class="noborder"><a class="link create-user" href="#">Create user</a></td>
+					<td class="noborder"><a class="link reset-password" href="#">Reset passwords</a></td>
+					<td class="noborder"></td>
+					<td class="noborder"><a class="link set-status-multi" href="#">Set status</a></td>
+					<td class="noborder"></td>
+					<td class="noborder"></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	{% for shop in shops %}
+		<div class="dialog details-dialog" id="{{ shop.id }}" title="User details">
+			<h5 class="center">Details for user {{ shop.username }}</h5>
+			<table>
+				<tr>
+					<td>Display Name</td>
+					<td id="display-name">
+						<a class="link change-content display-name" id="{{ shop.id }}" href="#">{{ shop.display_name }}</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Firstname</td>
+					<td id="firstname">
+						<a class="link change-content firstname" id="{{ shop.id }}" href="#">
+							{% if shop.first_name %}
+								{{ shop.first_name }}
+							{% else %}
+								Add user's first name
+							{% endif %}
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Lastname</td>
+					<td id="lastname">
+						<a class="link change-content lastname" id="{{ shop.id }}" href="#">
+							{% if shop.last_name %}
+								{{ shop.last_name }}
+							{% else %}
+								Add user's last name
+							{% endif %}
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td id="address"><a class="link change-content address" id="{{ shop.id }}" href="#">{{ shop.address }}</a></td>
+				</tr>
+				<tr>
+					<td>Phone number</td>
+					<td id="phone"><a class="link change-content phone-number" id="{{ shop.id }}" href="#">{{ shop.phone_number }}</a></td>
+				</tr>
+				<tr>
+					<td>Shop description</td>
+					<td id="description"><a class="link change-content description" id="{{ shop.id }}" href="#">Add description</a></td>
+				</tr>
+			</table>
+		</div>
+	{% endfor %}
+	<div class="block-center dialog" id="change-password-dialog" title="Change user's password">
+		<form action="/admin/" method="post">
+			<table>
+				<tr>
+					<td>New Password</td>
+					<td><input type="password" id="id_new_password" /></td>
+				</tr>
+				<tr>
+					<td>Confirm Password</td>
+					<td><input type="password" id="id_confirm_password" /></td>
+				</tr>
+			</table>
+			<input class="button" type="submit" value="Submit" />
+		</form>
+	</div>
+	<div class="center dialog" id="set-status-dialog" title="Setting user status"></div>
 {% endblock %}

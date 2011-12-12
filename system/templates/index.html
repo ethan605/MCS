@@ -14,7 +14,7 @@
 {% block title %}MCS - Index site{% endblock %}
 
 {% block header_buttons %}
-	<a class="button" id="signin-button" href="#">Sign in</a>
+	<button id="signin-button">Sign in</button>
 	<a class="button" href="/signup/">Sign up</a>
 {% endblock %}
 
@@ -29,8 +29,8 @@
 {% endblock %}
 
 {% block js_components %}
-	<div id="signin-dialog" title="User sign in">
-		<form class="block-center" id="signin-form" action="/signin/" method="POST">
+	<div class="block-center dialog" id="signin-dialog" title="User sign in">
+		<form id="signin-form" action="/signin/" method="POST">
 			{% csrf_token %}
 			<table>
 				<tr>
@@ -50,5 +50,4 @@
 			<input class="button" type="submit" value="Submit" />
 		</form>
 	</div>
-	<div class="center" id="signin-notice" title="Authenticated"></div>
 {% endblock %}

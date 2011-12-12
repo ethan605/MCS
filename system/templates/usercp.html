@@ -17,8 +17,8 @@
 {% endblock %}
 
 {% block js_components %}
-	<div class="block-center dialog" id="changepass-dialog" title="Change password">
-		<form id="changepass-form" action="/usercp/changepass/" method="post">
+	<div class="block-center dialog" id="change-password-dialog" title="Change password">
+		<form id="change-password-form" action="/usercp/changepass/" method="post">
 			{% csrf_token %}
 			<table>
 				<tr>
@@ -38,5 +38,5 @@
 			<input class="button" type="submit" value="Submit" />
 		</form>
 	</div>
-	<div class="center dialog" id="changepass-notice" title="Notice"></div>
+	<div class="center dialog" id="change-password-notice" title="Notice"></div>
 {% endblock %}

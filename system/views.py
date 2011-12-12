@@ -94,24 +94,56 @@ def admin(request):
         return HttpResponseRedirect("/")
 
     if request.is_ajax():
-        if request.POST["type"] == "set-status":
-            try:
-                user = User.objects.get(id__exact=request.POST["id"])
-            except User.DoesNotExist:
-                return HttpResponse("User does not exist")
-            user.is_active = not user.is_active
-            user.save()
-            return HttpResponse("User's status has been updated")
+        print request.POST
+        try:
+            user = User.objects.get(id__exact=request.POST["id"])
+        except User.DoesNotExist:
+            return HttpResponse("User does not exist")
+        else:
+            if request.POST["type"] == "set-status":
+                user.is_active = not user.is_active
+                user.save()
+                return HttpResponse("User's status has been updated")
 
-    shops = Shop.objects.all()
-    return render_to_response("admin.html", {"user":request.user, "shops":shops})
+            if request.POST["type"] == "change-password":
+                user.set_password(request.POST["confirm_pass"])
+                user.save()
+                return HttpResponse()
+
+            if request.POST["type"] == "change-content":
+                if request.POST["content"] == "username":
+                    try:
+                        User.objects.get(username__exact=request.POST["new_content"])
+                    except User.DoesNotExist:
+                        user.username = request.POST["new_content"]
+                        user.save()
+                        return HttpResponse()
+                    else:
+                        return HttpResponse("Username existed")
+                elif request.POST["content"] == "email":
+                    try:
+                        User.objects.get(email__exact=request.POST["new_content"])
+                    except User.DoesNotExist:
+                        user.email = request.POST["new_content"]
+                        user.save()
+                        return HttpResponse()
+                    else:
+                        return HttpResponse("Email existed")
+                else:
+                    return HttpResponse("other cases")
+
+    response_dict = {}
+    response_dict.update({"user": request.user})
+    response_dict.update({"shops": Shop.objects.all()})
+    response_dict.update({"changeDetailsForm": forms.ChangeDetailsForm()})
+    return render_to_response("admin.html", response_dict, context_instance=RequestContext(request))
 
 def usercp(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/")
 
     response_dict = {"user":request.user}
-    changePassForm = forms.ChangePassForm()
+    changePassForm = forms.ChangeDetailsForm()
     response_dict.update({"changePassForm": changePassForm})
     return render_to_response("usercp.html", response_dict, context_instance=RequestContext(request))
 
@@ -134,20 +166,24 @@ def success(request):
 
 def ajax(request):
     if request.is_ajax():
-        res_username = ""
-        res_password = ""
-        if request.POST["username"] != "" and request.POST["password"] != "":
-            user = User()
-            try:
-                user = User.objects.get(username__exact=request.POST["username"])
-            except User.DoesNotExist:
-                res_username = "Username does not exist"
+        print request.POST
+        return HttpResponse("response")
 
-            if not user.check_password(request.POST["password"]):
-                res_password = "Password does not match"
+    print request.POST
+#        res_username = ""
+#        res_password = ""
+#        if request.POST["username"] != "" and request.POST["password"] != "":
+#            user = User()
+#            try:
+#                user = User.objects.get(username__exact=request.POST["username"])
+#            except User.DoesNotExist:
+#                res_username = "Username does not exist"
+#
+#            if not user.check_password(request.POST["password"]):
+#                res_password = "Password does not match"
+#
+#        response_dict = {"res_username": res_username, "res_password": res_password}
+#        res_data = simplejson.dumps(response_dict)
+#        return HttpResponse(res_data, mimetype="application/json")
 
-        response_dict = {"res_username": res_username, "res_password": res_password}
-        res_data = simplejson.dumps(response_dict)
-        return HttpResponse(res_data, mimetype="application/json")
-
-    return render_to_response("ajax.html")
+    return render_to_response("ajax.html", {"changeDetailsForm": forms.ChangeDetailsForm()})

@@ -6,10 +6,11 @@ Created on Nov 27, 2011
 from django import forms
 from MCS.system.models import Shop
 
-class ChangePassForm(forms.Form):
-    current_pass = forms.CharField(widget=forms.PasswordInput)
-    new_pass = forms.CharField(widget=forms.PasswordInput)
-    confirm_pass = forms.CharField(widget=forms.PasswordInput)
+class ChangeDetailsForm(forms.Form):
+    new_content = forms.CharField(required=False)
+    current_pass = forms.CharField(widget=forms.PasswordInput, required=False)
+    new_pass = forms.CharField(widget=forms.PasswordInput, required=False)
+    confirm_pass = forms.CharField(widget=forms.PasswordInput, required=False)
 
 class SignInForm(forms.Form):
     """ form dang nhap tu link localhost:8000/signin/"""

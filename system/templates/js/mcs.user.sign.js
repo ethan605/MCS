@@ -22,7 +22,6 @@ $(document).ready(function() {
 		}).form();
 	}
 	$("#signin-form").ajaxForm({
-		type: "POST",
 		dataType: "json",
 		beforeSubmit: formValidate,
 		success: function(data) {
@@ -41,6 +40,10 @@ $(document).ready(function() {
 	/*
 	 * Sign out
 	 */
+	$("#signout-button").click(function() {
+		$("#signout-dialog").html("Are you really want to sign out?").dialog("open");
+		return false;
+	});
 	$("#signout-dialog").dialog({
 		autoOpen: false,
 		buttons: {
@@ -60,9 +63,5 @@ $(document).ready(function() {
 				$(this).dialog("close");
 			}
 		}
-	});
-	$("#signout-button").click(function() {
-		$("#signout-dialog").html("Are you really want to sign out?").dialog("open");
-		return false;
 	});
 });

@@ -6,13 +6,23 @@ $(document).ready(function() {
 		modal: true,
 		resizable: false,
 		show: "blind",
-		hide: "blind"
+		hide: "blind",
 	});
 	$("#notice-dialog").dialog({
 		buttons: {
-			"OK": function() { 
-				$(this).dialog("close"); 
+			"OK": function() {
+				$(this).dialog("close");
 			}
 		}
-	});
+	})
+	$("#confirm-dialog").dialog({
+		buttons: {
+			"Yes": function() {
+				$(this).dialog("close");
+			},
+			"No": function() {
+				$(this).dialog("close");
+			}
+		}
+	})
 });

@@ -57,6 +57,7 @@ def sign_out(request):
 def signup(request):
     """ cua hang dang ki"""
     if request.is_ajax():
+        print request.POST
         try:
             User.objects.get(username__exact=request.POST["username"])
         except User.DoesNotExist:
@@ -75,7 +76,7 @@ def signup(request):
         res_data = simplejson.dumps(response_dict)
 
         if res_username == "" and res_email == "":
-            form = ShopSignUpForm(data=request.POST)
+            form = forms.ShopSignUpForm(data=request.POST)
             form.is_valid()
             form.save()
             user = authenticate(username=request.POST["username"], password=request.POST["password"])

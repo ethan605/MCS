@@ -1,5 +1,4 @@
 # Create your views here.
-import email
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from MCS.system import forms
@@ -95,10 +94,31 @@ def admin(request):
         return HttpResponseRedirect("/")
 
     if request.is_ajax():
-        print request.POST
+        if "type" not in request.POST:
+            return HttpResponse("invalid")
+
+        if request.POST["type"] == "set-multi-status":
+            active_status = True if (request.POST["mode"] == "activate") else False
+            id_list = request.POST.getlist("for")
+            error_list = list()
+            for _id in id_list:
+                try:
+                    user = User.objects.get(id__exact=_id)
+                except User.DoesNotExist:
+                    error_list.append(_id)
+                else:
+                    user.is_active = active_status
+                    user.save()
+
+            if error_list:
+                res_data = simplejson.dumps(error_list)
+                return HttpResponse(res_data, mimetype="application/json")
+            return HttpResponse()
+
+        # if type is not multiple settings
         try:
-            user = User.objects.get(id__exact=request.POST["id"])
-        except User.DoesNotExist:
+            user = Shop.objects.get(id__exact=request.POST["id"])
+        except Shop.DoesNotExist:
             return HttpResponse("User does not exist")
         else:
             if request.POST["type"] == "set-status":
@@ -114,8 +134,8 @@ def admin(request):
             if request.POST["type"] == "change-content":
                 if request.POST["content"] == "username":
                     try:
-                        User.objects.get(username__exact=request.POST["new_content"])
-                    except User.DoesNotExist:
+                        Shop.objects.get(username__exact=request.POST["new_content"])
+                    except Shop.DoesNotExist:
                         user.username = request.POST["new_content"]
                         user.save()
                         return HttpResponse()
@@ -123,8 +143,8 @@ def admin(request):
                         return HttpResponse("Username existed")
                 elif request.POST["content"] == "email":
                     try:
-                        User.objects.get(email__exact=request.POST["new_content"])
-                    except User.DoesNotExist:
+                        Shop.objects.get(email__exact=request.POST["new_content"])
+                    except Shop.DoesNotExist:
                         user.email = request.POST["new_content"]
                         user.save()
                         return HttpResponse()

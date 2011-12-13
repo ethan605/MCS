@@ -2,6 +2,7 @@
  * MCS Admin functions
  */
 $(document).ready(function() {
+	$("#tabs").tabs();
 	/*
 	 * Init elements
 	 * Buttons
@@ -20,6 +21,27 @@ $(document).ready(function() {
 	});
 
 	/*
+	 * Checkboxes
+	 */
+	$("input#check-all").click(function() {
+		if ($(this).is(":checked"))
+			$("input.check:not(:checked)").attr("checked", "checked")
+		else
+			$("input.check:checked").removeAttr("checked");
+	});
+	
+	/*
+	 * Set multi status button
+	 */
+	$(".change-multi.status").click(function() {
+		if ($("input.check:checked").length > 0) {
+			$("#set-multi-status-dialog #activate").click();
+			$("#set-multi-status-dialog").dialog("open");
+		}
+		return false;
+	});
+
+	/*
 	 * Details buttons
 	 */
 	$(".details").each(function(i, e) {
@@ -34,7 +56,8 @@ $(document).ready(function() {
 	 */
 	$(".change-content").each(function() {
 		$(this).click(function() {
-			$("input:text").val("");
+			$("#change-content-form").resetForm();
+			$("#change-content-form #error-show").hide();
 			$("#change-content-dialog #new-content-label").html("New " + $(this).attr("content"));
 			$("#change-content-dialog input:submit").attr("value", "Change " + $(this).attr("content"));
 			switch ($(this).attr("content")) {
@@ -54,7 +77,7 @@ $(document).ready(function() {
 			$("#change-content-dialog")
 				.attr("content", $(this).attr("content"))
 				.attr("for", $(this).attr("id"))
-				.dialog({ title: "Change user's " + $(this).attr("content") })
+				.dialog({title: "Change user's " + $(this).attr("content")})
 				.dialog("open");
 			return false;
 		});
@@ -65,7 +88,8 @@ $(document).ready(function() {
 	 */
 	 $(".change-password").each(function(i, e) {
 	 	$(this).click(function() {
-	 		$("input:password").val("");
+	 		$("#change-password-form").resetForm();
+	 		$("#change-password-form #error-show").hide();
 	 		$("#change-password-dialog").attr("for", $(this).attr("id")).dialog("open");
 	 		return false;
 	 	});
@@ -80,16 +104,6 @@ $(document).ready(function() {
 	// 	},
 	// 	text: false
 	// });
-
-	/*
-	 * Checkboxes
-	 */
-	 $("input#check-all").click(function() {
-	 	if ($(this).is(":checked"))
-	 		$("input.check:not(:checked)").attr("checked", "checked")
-	 	else
-	 		$("input.check:checked").removeAttr("checked");
-	 });
 
 	/*
 	 * Init dialogs
@@ -110,6 +124,7 @@ $(document).ready(function() {
 	 * Change content dialogs
 	 */
 	$("#change-content-form").submit(function() {
+		$("#change-content-form #error-show").show();
 		$(this).ajaxSubmit({
 			data: {type: "change-content", content: $("#change-content-dialog").attr("content"), id: $("#change-content-dialog").attr("for")},
 			beforeSubmit: function() {
@@ -136,6 +151,7 @@ $(document).ready(function() {
 	$("#change-password-dialog #id_new_pass").attr("minlength", "6");
 	$("#change-password-dialog #id_confirm_pass").attr("equalTo", "#id_new_pass");
 	$("#change-password-form").submit(function() {
+		$("#change-password-form #error-show").show();
 		$(this).ajaxSubmit({
 			data: {type: "change-password", id: $("#change-password-dialog").attr("for")},
 			beforeSubmit: function() {
@@ -153,9 +169,9 @@ $(document).ready(function() {
 		return false;
 	});
 
-	 /*
-	  * Set status dialog
-	  */
+	/*
+	* Set status dialog
+	*/
 	$("#set-status-dialog").dialog({
 		buttons: {
 			"Yes": function() {
@@ -168,6 +184,40 @@ $(document).ready(function() {
 						$("a.set-status[id="+$("#set-status-dialog").attr("set-status-for")+"]")
 							.attr("mode", $("#set-status-dialog").attr("mode")=="True"?"False":"True")
 							.text($("#set-status-dialog").attr("mode")=="True"?"Activate":"Deactivate");
+					}
+				});
+			},
+			"No": function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+
+	/*
+	 * Set multi status dialog
+	 */
+	$("#set-multi-status-dialog #radio").buttonset();
+	$("#set-multi-status-dialog").dialog({
+		buttons: {
+			"Yes": function() {
+				$("input.check:checked").each(function(i, e) {
+					$(this).attr("name", "for").attr("value", $(this).attr("id"));
+				});
+				var post_data = [{name: "type", value: "set-multi-status"}];
+				post_data.push({name: "mode", value: $("#set-multi-status-dialog input:checked").attr("id")});
+				post_data = post_data.concat($("input.check:checked").serializeArray());
+				$.ajax({
+					type: "POST",
+					url: "/admin/",
+					data: post_data,
+					dataType: "json",
+					success: function(data) {
+						$("input.check:checked").each(function(i, e) {
+							$(".set-status[id=" + $(this).attr("id") + "]")
+								.text(post_data[1].value == "activate" ? "Deactivate" : "Activate");
+						});
+						$("#set-multi-status-dialog").dialog("close");
+						$("#notice-dialog").html(data ? data : "Users' status have been updated").dialog("open");
 					}
 				});
 			},

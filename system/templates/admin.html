@@ -13,125 +13,149 @@
 {% block header_url %}<a class="link" href="/admin/">Admin</a>{% endblock %}
 
 {% block content %}
-	<div class="block-center">
-		<table class="center tablesorter" id="all-table">
-			<thead>
-				<tr>
-					<td>ID</td>
-					<td>Username</td>
-					<td>Password</td>
-					<td>Email</td>
-					<td>Status</td>
-					<td>Details</td>
-					<td>
-						<input type="checkbox" id="check-all" />
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				{% for shop in shops%}
+<div id="tabs">
+	<ul>
+		<li><a href="#user-manage-tab">User management</a></li>
+		<li><a href="#news-manage-tab">News management</a></li>
+		<li><a href="#market-manage-tab">Market management</a></li>
+	</ul>
+	<div id="user-manage-tab">
+		<div class="block-center">
+			<table class="center tablesorter" id="all-table">
+				<thead>
 					<tr>
-						<td id="id">{{ shop.id }}</td>
-						<td id="username"><a class="link change-content" content="username" id="{{ shop.id }}" href="#">{{ shop.username }}</a></td>
-						<td id="password"><a class="link change-password" id="{{ shop.id }}" href="#">Change password</a></td>
-						<td id="email"><a class="link change-content" content="email" id="{{ shop.id }}" href="#">{{ shop.email }}</a></td>
-						<td id="status"><a class="link set-status" mode="{{ shop.is_active }}" id="{{ shop.id }}" href="#"></a></td>
-						<td id="details"><a class="link details" id="{{ shop.id }}" href="#">Details</a></td>
-						<td><input type="checkbox" class="check" id="{{ shop.id }}" /></td>
+						<td>ID</td>
+						<td>Username</td>
+						<td>Password</td>
+						<td>Email</td>
+						<td>Status</td>
+						<td>Details</td>
+						<td>
+							<input type="checkbox" id="check-all" />
+						</td>
 					</tr>
-				{% endfor %}
-			</tbody>
-			<tfoot>
-				<tr class="noborder">
-					<td class="noborder"></td>
-					<td class="noborder"><a class="link create-user" href="#">Create user</a></td>
-					<td class="noborder"><a class="link reset-password" href="#">Reset passwords</a></td>
-					<td class="noborder"></td>
-					<td class="noborder"><a class="link set-status-multi" href="#">Set status</a></td>
-					<td class="noborder"></td>
-					<td class="noborder"></td>
-				</tr>
-			</tfoot>
-		</table>
-	</div>
-	{% for shop in shops %}
-		<div class="block-center dialog details-dialog" id="{{ shop.id }}" title="User details">
-			<h5 class="center">Details for user {{ shop.username }}</h5>
-			<table>
-				<tr>
-					<td>Display Name</td>
-					<td id="display-name">
-						<a class="link change-content" content="display name" id="{{ shop.id }}" href="#">{{ shop.display_name }}</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Firstname</td>
-					<td id="firstname">
-						<a class="link change-content" content="first name" id="{{ shop.id }}" href="#">
-							{% if shop.first_name %}
-								{{ shop.first_name }}
-							{% else %}
-								Add user's first name
-							{% endif %}
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Lastname</td>
-					<td id="lastname">
-						<a class="link change-content" content="last name" id="{{ shop.id }}" href="#">
-							{% if shop.last_name %}
-								{{ shop.last_name }}
-							{% else %}
-								Add user's last name
-							{% endif %}
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Address</td>
-					<td id="address"><a class="link change-content" content="address" id="{{ shop.id }}" href="#">{{ shop.address }}</a></td>
-				</tr>
-				<tr>
-					<td>Phone number</td>
-					<td id="phone"><a class="link change-content" content="phone number" id="{{ shop.id }}" href="#">{{ shop.phone_number }}</a></td>
-				</tr>
-				<tr>
-					<td>Shop description</td>
-					<td id="description"><a class="link change-description" id="{{ shop.id }}" href="#">Add description</a></td>
-				</tr>
+				</thead>
+				<tbody>
+					{% for shop in shops%}
+						<tr>
+							<td id="id">{{ shop.id }}</td>
+							<td id="username"><a class="link change-content" content="username" id="{{ shop.id }}" href="#">{{ shop.username }}</a></td>
+							<td id="password"><a class="link change-password" id="{{ shop.id }}" href="#">Change password</a></td>
+							<td id="email"><a class="link change-content" content="email" id="{{ shop.id }}" href="#">{{ shop.email }}</a></td>
+							<td id="status"><a class="link set-status" mode="{{ shop.is_active }}" id="{{ shop.id }}" href="#"></a></td>
+							<td id="details"><a class="link details" id="{{ shop.id }}" href="#">Details</a></td>
+							<td><input type="checkbox" class="check" id="{{ shop.id }}" /></td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr class="noborder">
+						<td class="noborder"></td>
+						<td class="noborder"><a class="link create-user" href="#">Create user</a></td>
+						<td class="noborder"><a class="link change-multi password" href="#">Reset passwords</a></td>
+						<td class="noborder"></td>
+						<td class="noborder"><a class="link change-multi status" href="#">Set status</a></td>
+						<td class="noborder"></td>
+						<td class="noborder"></td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
-	{% endfor %}
-	<div class="block-center dialog" id="change-password-dialog" title="Change user's password">
-		<form id="change-password-form" action="/admin/" method="post">
-			{% csrf_token %}
-			<table>
-				<tr>
-					<td>New Password</td>
-					<td>{{ changeDetailsForm.new_pass }}</td>
-				</tr>
-				<tr>
-					<td>Confirm Password</td>
-					<td>{{ changeDetailsForm.confirm_pass }}</td>
-				</tr>
-			</table>
-			<div class="text-error block-center" id="error-show"></div>
-			<input class="button" type="submit" value="Change password" />
-		</form>
+		{% for shop in shops %}
+			<div class="block-center dialog details-dialog" id="{{ shop.id }}" title="User details">
+				<h5 class="center">Details for user {{ shop.username }}</h5>
+				<table>
+					<tr>
+						<td>Display Name</td>
+						<td id="display-name">
+							<a class="link change-content" content="display name" id="{{ shop.id }}" href="#">{{ shop.display_name }}</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Firstname</td>
+						<td id="firstname">
+							<a class="link change-content" content="first name" id="{{ shop.id }}" href="#">
+								{% if shop.first_name %}
+									{{ shop.first_name }}
+								{% else %}
+									Add user's first name
+								{% endif %}
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Lastname</td>
+						<td id="lastname">
+							<a class="link change-content" content="last name" id="{{ shop.id }}" href="#">
+								{% if shop.last_name %}
+									{{ shop.last_name }}
+								{% else %}
+									Add user's last name
+								{% endif %}
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Address</td>
+						<td id="address"><a class="link change-content" content="address" id="{{ shop.id }}" href="#">{{ shop.address }}</a></td>
+					</tr>
+					<tr>
+						<td>Phone number</td>
+						<td id="phone"><a class="link change-content" content="phone number" id="{{ shop.id }}" href="#">{{ shop.phone_number }}</a></td>
+					</tr>
+					<tr>
+						<td>Shop description</td>
+						<td id="description"><a class="link change-description" id="{{ shop.id }}" href="#">Add description</a></td>
+					</tr>
+				</table>
+			</div>
+		{% endfor %}
+		<div class="block-center dialog" id="change-password-dialog" title="Change user's password">
+			<form id="change-password-form" action="/admin/" method="post">
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td>New Password</td>
+						<td>{{ changeDetailsForm.new_pass }}</td>
+					</tr>
+					<tr>
+						<td>Confirm Password</td>
+						<td>{{ changeDetailsForm.confirm_pass }}</td>
+					</tr>
+				</table>
+				<div class="text-error block-center" id="error-show"></div>
+				<input class="button" type="submit" value="Change password" />
+			</form>
+		</div>
+		<div class="block-center dialog" id="change-content-dialog">
+			<form id="change-content-form" action="/admin/" method="post">
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td id="new-content-label"></td>
+						<td id="new-content-input">{{ changeDetailsForm.new_content }}</td>
+					</tr>
+				</table>
+				<div class="text-error block-center" id="error-show"></div>
+				<input class="button" type="submit" />
+			</form>
+		</div>
+		<div class="center dialog" id="set-multi-status-dialog" title="Multiple status setting">
+			<form>
+				<div><label>Choose status to apply for selected users</label></div>
+				<div id="radio">
+					<input type="radio" id="activate" name="radio" /><label for="activate">Activate</label>
+					<input type="radio" id="deactivate" name="radio" /><label for="deactivate">Deactivate</label>
+				</div>
+			</form>
+		</div>
+		<div class="center dialog" id="set-status-dialog" title="User status setting"></div>
 	</div>
-	<div class="block-center dialog" id="change-content-dialog">
-		<form id="change-content-form" action="/admin/" method="post">
-			{% csrf_token %}
-			<table>
-				<tr>
-					<td id="new-content-label"></td>
-					<td id="new-content-input">{{ changeDetailsForm.new_content }}</td>
-				</tr>
-			</table>
-			<div class="text-error block-center" id="error-show"></div>
-			<input class="button" type="submit" />
-		</form>
+	<div id="news-manage-tab">
+		<h1>News management</h1>
 	</div>
-	<div class="center dialog" id="set-status-dialog" title="User status setting"></div>
+	<div id="market-manage-tab">
+		<h1>Market management</h1>
+	</div>
+</div>
 {% endblock %}

@@ -3,53 +3,9 @@
 {% load url from future %}
 
 {% block js %}
-	<script type="text/javascript" src="/static/js/mcs.user.sign.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.validate.additional-methods.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("table,tr,td").addClass("noborder");
-			$("#id_display_name,#id_address,#id_re_password").addClass("required");
-			$("#signup-form #id_username").addClass("required lettersdigits");
-			$("#signup-form #id_password").addClass("required").attr("minlength", "6");
-			$("#id_re_password").attr("equalTo", "#id_password");
-			$("#id_email,#id_re_email").addClass("required email");
-			$("#id_re_email").attr("equalTo", "#id_email");
-			$("#id_phone_number").addClass("required digits");
-
-			$("#notice-dialog").dialog({
-				title: "Signup notice",
-				buttons: {
-					"OK": function() { 
-						$(this).dialog("close"); 
-						$(location).attr("href", "/usercp/");
-					}
-				}
-			});
-
-			function formValidate() {
-				return $("#signup-form").validate({
-					errorClass: "text-error",
-					validClass: "text-success",
-					errorElement: "span",
-					errorPlacement: function(error, element) {
-						element.parent("td").next("td").html(error);
-					}
-				}).form();
-			}
-			$("#signup-form").ajaxForm({
-				dataType: "json",
-				beforeSubmit: formValidate,
-				success: function(data) {
-					if (data.res_username != "" || data.res_email != "") {
-						$("#username-error").html(data.res_username).show();
-						$("#email-error").html(data.res_email).show();
-					}
-					else
-						$("#notice-dialog").html("User's successfully registered").dialog("open");
-				}
-			});
-		});
-	</script>
+	<script type="text/javascript" src="/static/js/mcs.user.sign.js"></script>
+	<script type="text/javascript" src="/static/js/mcs.user.signup.js"></script>
 {% endblock %}
 
 {% block title %}MCS - User sign up{% endblock %}
@@ -61,46 +17,39 @@
 			{% csrf_token %}
 			<table>
 				<tr>
-					<td><strong>Tên hiển thị</strong></td>
+					<td><label>Tên hiển thị</label></td>
 					<td>{{ form.display_name }}</td>
-					<td></td>
 				</tr>
 				<tr>
-					<td><strong>Tên đăng ký:</strong> </td>
+					<td><label>Tên đăng ký:</label> </td>
 					<td>{{ form.username }}</td>
-					<td class="text-error" id="username-error"></td>
 				</tr>
 				<tr>
-					<td><strong>Mật khẩu:</strong></td>					
+					<td><label>Mật khẩu:</label></td>					
 					<td>{{ form.password }}</td>
-					<td></td>
 				</tr>
 				<tr>
-					<td><strong>Nhập lại mật khẩu:</strong></td>
+					<td><label>Nhập lại mật khẩu:</label></td>
 					<td>{{ form.re_password }}</td>
-					<td></td>
 				</tr>
 				<tr>
-					<td><strong>Email:</strong></td>
+					<td><label>Email:</label></td>
 					<td>{{ form.email }}</td>
-					<td class="text-error" id="email-error"></td>
 				</tr>
 				<tr>
-					<td><strong>Nhập lại Email:</strong></td>
+					<td><label>Nhập lại Email:</label></td>
 					<td>{{ form.re_email }}</td>
-					<td></td>
 				</tr>
 				<tr>
-					<td><strong>Địa chỉ:</strong></td>
+					<td><label>Địa chỉ:</label></td>
 					<td>{{ form.address }}</td>
-					<td></td>
 				</tr>
 				<tr>
-					<td><strong>Số điện thoại:</strong></td>
+					<td><label>Số điện thoại:</label></td>
 					<td>{{ form.phone_number }}</td>
-					<td></td>
 				</tr>
 			</table>
+			<div class="text-error block-center" id="error-display"></div>
 			<input class="button" type="submit" value="Submit" id="submit"/>
 		</form>
 	</div>
@@ -112,15 +61,15 @@
 			{% csrf_token %}
 			<table>
 				<tr>
-					<td><strong>Username</strong></td>
+					<td><label>Username</label></td>
 					<td>{{ form.username }}</td>
 				</tr>
 				<tr>
-					<td><strong>Password</strong></td>
+					<td><label>Password</label></td>
 					<td>{{ form.password }}</td>
 				</tr>
 			</table>
-			<div class="text-error block-center" id="error-show"></div>
+			<div class="text-error block-center" id="error-display"></div>
 			<p>
 				{{ form.remember }}
 				<label for="remember">Remember me</label>

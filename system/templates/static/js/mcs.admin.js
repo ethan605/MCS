@@ -3,23 +3,12 @@
  */
 $(document).ready(function() {
 	$("#tabs").tabs();
+	$("#all-user-table tfoot tr").addClass("noborder")
+		.children().addClass("noborder");
 	/*
 	 * Init elements
 	 * Buttons
-	 *
-	 * Status set buttons
 	 */
-	$(".set-status").each(function(i, e) {
-		$(e).text($(e).attr("mode")=="True" ? "Deactivate":"Activate");
-		$(e).click(function() {
-			$("#set-status-dialog").attr("mode", $(e).attr("mode"))
-				.attr("set-status-for", $(e).attr("id"))
-				.html("Do you really want to " + ($(e).attr("mode")=="True" ? "deactivate":"activate") + " this user?")
-				.dialog("open");
-			return false;
-		});
-	});
-
 	/*
 	 * Checkboxes
 	 */
@@ -31,12 +20,26 @@ $(document).ready(function() {
 	});
 	
 	/*
-	 * Set multi status button
+	 * Change single status buttons
+	 */
+	$(".change-single.status").each(function() {
+		$(this).text($(this).attr("mode")=="True" ? "Deactivate":"Activate");
+		$(this).click(function() {
+			$("#change-single-status-dialog").attr("mode", $(this).attr("mode"))
+				.attr("for", $(this).attr("id"))
+				.html("Do you really want to " + ($(this).attr("mode")=="True" ? "deactivate":"activate") + " this user?")
+				.dialog("open");
+			return false;
+		});
+	});
+
+	/*
+	 * Change multi status button
 	 */
 	$(".change-multi.status").click(function() {
 		if ($("input.check:checked").length > 0) {
-			$("#set-multi-status-dialog #activate").click();
-			$("#set-multi-status-dialog").dialog("open");
+			$("#change-multi-status-dialog #activate").click();
+			$("#change-multi-status-dialog").dialog("open");
 		}
 		return false;
 	});
@@ -44,7 +47,7 @@ $(document).ready(function() {
 	/*
 	 * Details buttons
 	 */
-	$(".details").each(function(i, e) {
+	$(".details").each(function() {
 		$(this).click(function() {
 			$(".details-dialog[id="+$(this).attr("id")+"]").dialog("open");
 			return false;
@@ -55,11 +58,26 @@ $(document).ready(function() {
 	 * Change content buttons
 	 */
 	$(".change-content").each(function() {
+		$(this).attr("display", $(this).attr("content"));
+		switch ($(this).attr("content")) {
+			case "display-name":
+				$(this).attr("display", "display name");
+				break;
+			case "first-name":
+				$(this).attr("display", "first name");
+				break;
+			case "last-name":
+				$(this).attr("display", "last name");
+				break;
+			case "phone-number":
+				$(this).attr("display", "phone number");
+				break;
+		}
 		$(this).click(function() {
 			$("#change-content-form").resetForm();
-			$("#change-content-form #error-show").hide();
-			$("#change-content-dialog #new-content-label").html("New " + $(this).attr("content"));
-			$("#change-content-dialog input:submit").attr("value", "Change " + $(this).attr("content"));
+			$("#change-content-form #error-display").hide();
+			$("#change-content-form #new-content-label").html("New " + $(this).attr("display"));
+			$("#change-content-form input:submit").attr("value", "Change " + $(this).attr("display"));
 			switch ($(this).attr("content")) {
 				case "username":
 					$("#change-content-dialog input:text").attr("class", "required lettersdigits");
@@ -67,7 +85,7 @@ $(document).ready(function() {
 				case "email":
 					$("#change-content-dialog input:text").attr("class", "required email");
 					break;
-				case "phone number":
+				case "phone-number":
 					$("#change-content-dialog input:text").attr("class", "required digits");
 					break;
 				default:
@@ -76,8 +94,9 @@ $(document).ready(function() {
 			}
 			$("#change-content-dialog")
 				.attr("content", $(this).attr("content"))
+				.attr("display", $(this).attr("display"))
 				.attr("for", $(this).attr("id"))
-				.dialog({title: "Change user's " + $(this).attr("content")})
+				.dialog({title: "Change user's " + $(this).attr("display")})
 				.dialog("open");
 			return false;
 		});
@@ -86,14 +105,32 @@ $(document).ready(function() {
 	/*
 	 * Change password buttons
 	 */
-	 $(".change-password").each(function(i, e) {
-	 	$(this).click(function() {
-	 		$("#change-password-form").resetForm();
-	 		$("#change-password-form #error-show").hide();
-	 		$("#change-password-dialog").attr("for", $(this).attr("id")).dialog("open");
-	 		return false;
-	 	});
-	 });
+	$(".change-single.password").each(function() {
+		$(this).click(function() {
+			$("#change-password-form .admin-password").hide();
+			$("#change-password-form .admin-password :password").removeClass("required");
+			$("#change-password-form").attr("class", "single").resetForm();
+			$("#change-password-form #error-display").hide();
+			$("#change-password-dialog")
+				.attr("for", $(this).attr("id"))
+				.dialog({title: "Change user's password"})
+				.dialog("open");
+			return false;
+		});
+	});
+
+	$(".change-multi.password").click(function() {
+		if ($("input.check:checked").length > 0) {
+			$("#change-password-form .admin-password").show();
+			$("#change-password-form .admin-password :password").addClass("required");
+			$("#change-password-form").attr("class", "multi").resetForm();
+			$("#change-password-form #error-display").hide();
+			$("#change-password-dialog")
+				.dialog({title: "Change multiple passwords"})
+				.dialog("open");
+		}
+		return false;
+	});
 
 	/*
 	 * Sort buttons
@@ -111,11 +148,12 @@ $(document).ready(function() {
 	$(".dialog table, .dialog tr, .dialog td").addClass("noborder");
 	function formValidate(element) {
 		return $(element).validate({
+			focusCleanup: true,
 			errorClass: "text-error",
 			validClass: "text-success",
 			errorElement: "span",
 			errorPlacement: function(error, element) {
-				$("[id=error-show]").html(error);
+				$("[id=error-display]").html(error);
 			}
 		}).form();
 	}
@@ -124,9 +162,9 @@ $(document).ready(function() {
 	 * Change content dialogs
 	 */
 	$("#change-content-form").submit(function() {
-		$("#change-content-form #error-show").show();
+		$("#change-content-form #error-display").show();
 		$(this).ajaxSubmit({
-			data: {type: "change-content", content: $("#change-content-dialog").attr("content"), id: $("#change-content-dialog").attr("for")},
+			data: {type: "change content", content: $("#change-content-dialog").attr("content"), id: $("#change-content-dialog").attr("for")},
 			beforeSubmit: function() {
 				return formValidate("#change-content-form");
 			},
@@ -135,10 +173,10 @@ $(document).ready(function() {
 					$(".change-content[id=" + $("#change-content-dialog").attr("for") + "][content=" + $("#change-content-dialog").attr("content") + "]")
 						.text($("#change-content-form #id_new_content").val());
 					$("#change-content-dialog").dialog("close");
-					$("#notice-dialog").html("User's " + $("#change-content-dialog").attr("content") + "has been updated").dialog("open");
+					$("#notice-dialog").html("User's " + $("#change-content-dialog").attr("display") + " has been updated").dialog("open");
 				}
 				else
-					$("#change-content-form #error-show").html(data);
+					$("#change-content-form #error-display").html(data);
 			}
 		});
 		return false;
@@ -147,43 +185,65 @@ $(document).ready(function() {
 	/*
 	 * Change password dialogs
 	 */
-	$("#change-password-dialog input:password").addClass("required");
-	$("#change-password-dialog #id_new_pass").attr("minlength", "6");
-	$("#change-password-dialog #id_confirm_pass").attr("equalTo", "#id_new_pass");
+	$("#change-password-form #id_new_pass,#id_confirm_pass").addClass("required").attr("minlength", "6");
+	$("#change-password-form #id_confirm_pass").attr("equalTo", "#id_new_pass");
 	$("#change-password-form").submit(function() {
-		$("#change-password-form #error-show").show();
-		$(this).ajaxSubmit({
-			data: {type: "change-password", id: $("#change-password-dialog").attr("for")},
-			beforeSubmit: function() {
-				return formValidate("#change-password-form");
-			},
-			success: function(data) {
-				if (data == "") {
-					$("#change-password-dialog").dialog("close");
-					$("#notice-dialog").html("User's password has been updated").dialog("open");
+		$("#change-password-form #error-display").show();
+		if ($(this).hasClass("single"))
+			$(this).ajaxSubmit({
+				data: {type: "single password", id: $("#change-password-dialog").attr("for")},
+				beforeSubmit: function() {
+					return formValidate("#change-password-form");
+				},
+				success: function(data) {
+					if (data == "") {
+						$("#change-password-dialog").dialog("close");
+						$("#notice-dialog").html("User's password has been updated").dialog("open");
+					}
+					else
+						$("#change-password-form #error-display").html(data);
 				}
-				else
-					$("#change-password-form #error-show").html(data);
-			}
-		});
+			});
+		else {
+			$("input.check:checked").each(function(i, e) {
+				$(this).attr("name", "for").attr("value", $(this).attr("id"));
+			});
+			var post_data = [{name: "type", value: "multi password"}];
+			post_data = post_data.concat($("input.check:checked").serializeArray());
+			$(this).ajaxSubmit({
+				data: post_data,
+				beforeSubmit: function() {
+					return formValidate("#change-password-form");
+				},
+				success: function(data) {
+					if (data == "") {
+						$(".check, #check-all").removeAttr("checked");
+						$("#change-password-dialog").dialog("close");
+						$("#notice-dialog").html("Selected users' passwords has been updated").dialog("open");
+					}
+					else
+						$("#change-password-form #error-display").html(data);
+				}
+			});
+		}
 		return false;
 	});
 
 	/*
 	* Set status dialog
 	*/
-	$("#set-status-dialog").dialog({
+	$("#change-single-status-dialog").dialog({
 		buttons: {
 			"Yes": function() {
 				$.ajax({
 					type: "POST",
 					url: "/admin/",
-					data: {type: "set-status", id: $(this).attr("set-status-for")},
+					data: {type: "single status", id: $(this).attr("for")},
 					success: function(data) {
-						$("#set-status-dialog").dialog("close");
-						$("a.set-status[id="+$("#set-status-dialog").attr("set-status-for")+"]")
-							.attr("mode", $("#set-status-dialog").attr("mode")=="True"?"False":"True")
-							.text($("#set-status-dialog").attr("mode")=="True"?"Activate":"Deactivate");
+						$("#change-single-status-dialog").dialog("close");
+						$("a.change-single.status[id="+$("#change-single-status-dialog").attr("for")+"]")
+							.attr("mode", $("#change-single-status-dialog").attr("mode")=="True"?"False":"True")
+							.text($("#change-single-status-dialog").attr("mode")=="True"?"Activate":"Deactivate");
 					}
 				});
 			},
@@ -196,15 +256,15 @@ $(document).ready(function() {
 	/*
 	 * Set multi status dialog
 	 */
-	$("#set-multi-status-dialog #radio").buttonset();
-	$("#set-multi-status-dialog").dialog({
+	$("#change-multi-status-dialog #radio").buttonset();
+	$("#change-multi-status-dialog").dialog({
 		buttons: {
 			"Yes": function() {
 				$("input.check:checked").each(function(i, e) {
 					$(this).attr("name", "for").attr("value", $(this).attr("id"));
 				});
-				var post_data = [{name: "type", value: "set-multi-status"}];
-				post_data.push({name: "mode", value: $("#set-multi-status-dialog input:checked").attr("id")});
+				var post_data = [{name: "type", value: "multi status"}];
+				post_data.push({name: "mode", value: $("#change-multi-status-dialog input:checked").attr("id")});
 				post_data = post_data.concat($("input.check:checked").serializeArray());
 				$.ajax({
 					type: "POST",
@@ -213,11 +273,13 @@ $(document).ready(function() {
 					dataType: "json",
 					success: function(data) {
 						$("input.check:checked").each(function(i, e) {
-							$(".set-status[id=" + $(this).attr("id") + "]")
+							$(".change-single.status[id=" + $(this).attr("id") + "]")
+								.attr("mode", post_data[1].value == "activate" ? "True" : "False")
 								.text(post_data[1].value == "activate" ? "Deactivate" : "Activate");
-						});
-						$("#set-multi-status-dialog").dialog("close");
-						$("#notice-dialog").html(data ? data : "Users' status have been updated").dialog("open");
+						})
+						$(".check, #check-all").removeAttr("checked");
+						$("#change-multi-status-dialog").dialog("close");
+						$("#notice-dialog").html(data ? data : "Selected users' statuses have been updated").dialog("open");
 					}
 				});
 			},

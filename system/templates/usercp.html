@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block title %}MCS - User Control Panel{% endblock %}
-{% block header_url %}<a class="link" href="/usercp/">{{ user.username }}</a>{% endblock %}
 
 {% block content %}
 	<h1>User Control Panel site</h1>
@@ -22,15 +21,15 @@
 			{% csrf_token %}
 			<table>
 				<tr>
-					<td><strong>Current password</strong></td>
+					<td><label>Current password</label></td>
 					<td>{{ changePassForm.current_pass}}</td>
 				</tr>
 				<tr>
-					<td><strong>New password</strong></td>
+					<td><label>New password</label></td>
 					<td>{{ changePassForm.new_pass}}</td>
 				</tr>
 				<tr>
-					<td><strong>Confirm password</strong></td>
+					<td><label>Confirm password</label></td>
 					<td>{{ changePassForm.confirm_pass}}</td>
 				</tr>
 			</table>

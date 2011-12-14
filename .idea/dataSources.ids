@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
-  <data-source source="LOCAL" name="Django default" product="" version="" jdbc-version="" driver-version="" uuid="a4867bf3-df27-40e1-8356-684f8e730736">
+  <data-source source="LOCAL" name="Django default" product="" version="" jdbc-version="" driver-version="" uuid="ef5297ef-3ab9-4b37-8017-3ceed5357842">
     <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
     <jdbc-url>jdbc:mysql://127.0.0.1/mcs</jdbc-url>
     <user-name>root</user-name>
-    <user-password>df9bdf98df99df9edf9fdf9c</user-password>
+    <user-password>dfd8dfc5dfc5dfde</user-password>
     <libraries>
       <library>
         <url>file://$USER_HOME$/.PyCharm10/config/jdbc-drivers/mysql-connector-license.txt</url>

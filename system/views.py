@@ -97,10 +97,11 @@ def admin(request):
         if "type" not in request.POST:
             return HttpResponse("invalid")
 
-        if request.POST["type"] == "set-multi-status":
+        # multiple status setting
+        id_list = request.POST.getlist("for")
+        error_list = list()
+        if request.POST["type"] == "multi status":
             active_status = True if (request.POST["mode"] == "activate") else False
-            id_list = request.POST.getlist("for")
-            error_list = list()
             for _id in id_list:
                 try:
                     user = User.objects.get(id__exact=_id)
@@ -114,44 +115,74 @@ def admin(request):
                 res_data = simplejson.dumps(error_list)
                 return HttpResponse(res_data, mimetype="application/json")
             return HttpResponse()
+        if request.POST["type"] == "multi password":
+            if not request.user.check_password(request.POST["current_pass"]):
+                return HttpResponse("Admin password does not match")
+            new_password = request.POST["new_pass"]
+            for _id in id_list:
+                try:
+                    user = User.objects.get(id__exact=_id)
+                except User.DoesNotExist:
+                    error_list.append(_id)
+                else:
+                    user.set_password(new_password)
+                    user.save()
 
-        # if type is not multiple settings
+            if error_list:
+                res_data = simplejson.dumps(error_list)
+                return HttpResponse(res_data, mimetype="application/json")
+            return HttpResponse()
+
+        # single settings
         try:
             user = Shop.objects.get(id__exact=request.POST["id"])
         except Shop.DoesNotExist:
             return HttpResponse("User does not exist")
         else:
-            if request.POST["type"] == "set-status":
+            if request.POST["type"] == "single status":
                 user.is_active = not user.is_active
                 user.save()
                 return HttpResponse("User's status has been updated")
 
-            if request.POST["type"] == "change-password":
+            if request.POST["type"] == "single password":
                 user.set_password(request.POST["confirm_pass"])
                 user.save()
                 return HttpResponse()
 
-            if request.POST["type"] == "change-content":
-                if request.POST["content"] == "username":
-                    try:
-                        Shop.objects.get(username__exact=request.POST["new_content"])
-                    except Shop.DoesNotExist:
-                        user.username = request.POST["new_content"]
-                        user.save()
-                        return HttpResponse()
-                    else:
-                        return HttpResponse("Username existed")
-                elif request.POST["content"] == "email":
-                    try:
-                        Shop.objects.get(email__exact=request.POST["new_content"])
-                    except Shop.DoesNotExist:
-                        user.email = request.POST["new_content"]
-                        user.save()
-                        return HttpResponse()
-                    else:
-                        return HttpResponse("Email existed")
+            # change content
+            # critical contents
+            if request.POST["content"] == "username":
+                try:
+                    Shop.objects.get(username__exact=request.POST["new_content"])
+                except Shop.DoesNotExist:
+                    user.username = request.POST["new_content"]
+                    user.save()
+                    return HttpResponse()
                 else:
-                    return HttpResponse("other cases")
+                    return HttpResponse("Username existed")
+            if request.POST["content"] == "email":
+                try:
+                    Shop.objects.get(email__exact=request.POST["new_content"])
+                except Shop.DoesNotExist:
+                    user.email = request.POST["new_content"]
+                    user.save()
+                    return HttpResponse()
+                else:
+                    return HttpResponse("Email existed")
+
+            # normal contents
+            if request.POST["content"] == "display-name":
+                user.display_name = request.POST["new_content"]
+            elif request.POST["content"] == "first-name":
+                user.first_name = request.POST["new_content"]
+            elif request.POST["content"] == "last-name":
+                user.last_name = request.POST["new_content"]
+            elif request.POST["content"] == "address":
+                user.address = request.POST["new_content"]
+            elif request.POST["content"] == "phone-number":
+                user.phone_number = request.POST["new_content"]
+            user.save()
+            return HttpResponse()
 
     response_dict = {}
     response_dict.update({"user": request.user})
@@ -177,7 +208,7 @@ def changepass(request):
             logout(request)
             res_data = simplejson.dumps({})
         else:
-            res_current_pass = "Current password not match"
+            res_current_pass = "Current password does not match"
             response_dict = {"res_current_pass": res_current_pass}
             res_data = simplejson.dumps(response_dict)
         return HttpResponse(res_data, mimetype="application/json")

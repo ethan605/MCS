@@ -1,9 +1,11 @@
 $(document).ready(function() {
 	$(".link").removeClass("link").addClass("ui-state-default ui-corner-all ui-button ui-button-link");
 	$("input:submit, a.button, button").button();
-	$("#content").hide();
+	$("#content, #footer").hide();
 	$("#header").hide().slideDown(function() {
-		$("#content").fadeIn(1500);
+		$("#content").fadeIn(function() {
+			$("#footer").slideDown();
+		});
 	});
 	$(".dialog").dialog({
 		autoOpen: false,

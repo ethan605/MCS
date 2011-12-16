@@ -27,25 +27,27 @@
 		{% endblock %}
 		<title>{% block title %}{% endblock %}</title>
 	</head>
-	<body>
-		<div class="container header-ribbon solidbkground" id="header">
-			<div class="left-buttons last">
-				<a class="link" href="{% url system.views.index %}"><img src="/static/images/logo.png"></a>
-				{% block header_url %}{% endblock %}
-			</div>
-			<div class="right-buttons last" id="header-buttons">
-				{% if user.is_authenticated %}
-					{% if user.is_superuser %}
-						<a class="button" href="/admin/">Admin</a>	
+	<body class="background">
+		<div class="header-ribbon header-bkground" id="header">
+			<div class="container">
+				<div class="left-buttons">
+					<a class="link" href="{% url system.views.index %}"><img src="/static/images/logo.png"></a>
+					{% block header_url %}{% endblock %}
+				</div>
+				<div class="right-buttons" id="header-buttons">
+					{% if user.is_authenticated %}
+						{% if user.is_superuser %}
+							<a class="button" href="/admin/">Admin</a>	
+						{% endif %}
+						<a class="button" href="/usercp/">{{ user.username }}</a>
+						<button id="signout-button">Sign out</button>
+					{% else %}
+						{% block header_buttons %}{% endblock %}
 					{% endif %}
-					<a class="button" href="/usercp/">{{ user.username }}</a>
-					<button id="signout-button">Sign out</button>
-				{% else %}
-					{% block header_buttons %}{% endblock %}
-				{% endif %}
+				</div>
 			</div>
 		</div>
-		<div class="container main-content solidbkground" id="content">
+		<div class="main-content" id="content">
 			{% block content %}{% endblock %}
 		</div>
 		<div class="container" id="footer">

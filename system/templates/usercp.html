@@ -10,9 +10,11 @@
 {% block title %}MCS - User Control Panel{% endblock %}
 
 {% block content %}
-	<h1>User Control Panel site</h1>
-	<h2>Hello {{ user.username }}</h2>
-	<a class="button" id="changepass-button" href="#">Change password</a>
+	<div class="container block-content bkground">
+		<h1>User Control Panel site</h1>
+		<h2>Hello {{ user.username }}</h2>
+		<a class="button" id="changepass-button" href="#">Change password</a>
+	</div>
 {% endblock %}
 
 {% block js_components %}

@@ -11,7 +11,7 @@
 {% block title %}MCS - User Control Panel{% endblock %}
 
 {% block content %}
-<div id="tabs">
+<div class="container block-content bkground"><div id="tabs">
 	<ul>
 		<li><a href="#user-manage-tab">User management</a></li>
 		<li><a href="#news-manage-tab">News management</a></li>
@@ -20,8 +20,7 @@
 	<div id="user-manage-tab">
 		<div class="block-center">
 			<table class="center tablesorter" id="all-user-table">
-				<thead>
-					<tr>
+				<thead><tr>
 						<td>ID</td>
 						<td>Username</td>
 						<td>Password</td>
@@ -29,8 +28,7 @@
 						<td>Status</td>
 						<td>Details</td>
 						<td><input type="checkbox" id="check-all" /></td>
-					</tr>
-				</thead>
+				</tr></thead>
 				<tbody>
 					{% for shop in shops%}
 						<tr>
@@ -46,8 +44,7 @@
 						</tr>
 					{% endfor %}
 				</tbody>
-				<tfoot>
-					<tr>
+				<tfoot><tr>
 						<td></td>
 						<td><a class="link create-user" href="#">Create user</a></td>
 						<td><a class="link change-multi password" href="#">Reset passwords</a></td>
@@ -55,107 +52,9 @@
 						<td><a class="link change-multi status" href="#">Set status</a></td>
 						<td></td>
 						<td></td>
-					</tr>
-				</tfoot>
+				</tr></tfoot>
 			</table>
 		</div>
-		{% for shop in shops %}
-			<div class="block-center dialog details-dialog" id="{{ shop.id }}" title="User details">
-				<h5 class="center">Details for user {{ shop.username }}</h5>
-				<table>
-					<tr>
-						<td>Display Name</td>
-						<td id="display-name">
-							<a class="link change-content" content="display-name" id="{{ shop.id }}" href="#">{{ shop.display_name }}</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Firstname</td>
-						<td id="firstname">
-							<a class="link change-content" content="first-name" id="{{ shop.id }}" href="#">
-								{% if shop.first_name %}
-									{{ shop.first_name }}
-								{% else %}
-									Add user's first name
-								{% endif %}
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Lastname</td>
-						<td id="lastname">
-							<a class="link change-content" content="last-name" id="{{ shop.id }}" href="#">
-								{% if shop.last_name %}
-									{{ shop.last_name }}
-								{% else %}
-									Add user's last name
-								{% endif %}
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Address</td>
-						<td id="address">
-							<a class="link change-content" content="address" id="{{ shop.id }}" href="#">{{ shop.address }}</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Phone number</td>
-						<td id="phone">
-							<a class="link change-content" content="phone-number" id="{{ shop.id }}" href="#">{{ shop.phone_number }}</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Shop description</td>
-						<td id="description"><a class="link change-description" id="{{ shop.id }}" href="#">Add description</a></td>
-					</tr>
-				</table>
-			</div>
-		{% endfor %}
-		<div class="block-center dialog" id="change-password-dialog">
-			<form id="change-password-form" action="/admin/" method="post">
-				{% csrf_token %}
-				<table>
-					<tr>
-						<td>New Password</td>
-						<td>{{ changeDetailsForm.new_pass }}</td>
-					</tr>
-					<tr>
-						<td>Confirm Password</td>
-						<td>{{ changeDetailsForm.confirm_pass }}</td>
-					</tr>
-					<tr>
-						<td class="admin-password">Admin Password</td>
-						<td class="admin-password">{{ changeDetailsForm.current_pass }}</td>
-					</tr>
-				</table>
-				<div class="text-error block-center" id="error-display"></div>
-				<input class="button" type="submit" value="Change password" />
-			</form>
-		</div>
-		<div class="block-center dialog" id="change-content-dialog">
-			<form id="change-content-form" action="/admin/" method="post">
-				{% csrf_token %}
-				<table>
-					<tr>
-						<td id="new-content-label"></td>
-						<td id="new-content-input">{{ changeDetailsForm.new_content }}</td>
-					</tr>
-				</table>
-				<div class="text-error block-center" id="error-display"></div>
-				<input class="button" type="submit" />
-			</form>
-		</div>
-		<div class="center dialog" id="change-multi-status-dialog" title="Change multiple statuses">
-			<form>
-				<div><label>Choose status to apply for selected users</label></div>
-				<div id="radio">
-					<input type="radio" id="activate" name="radio" checked="checked" /><label for="activate">Activate</label>
-					<input type="radio" id="deactivate" name="radio" /><label for="deactivate">Deactivate</label>
-				</div>
-			</form>
-		</div>
-		<div class="center dialog" id="change-single-status-dialog" title="Change user status"></div>
 	</div>
 	<div id="news-manage-tab">
 		<h1>News management</h1>
@@ -163,5 +62,111 @@
 	<div id="market-manage-tab">
 		<h1>Market management</h1>
 	</div>
+</div></div>
+
+<!-- Dialogs markup -->
+{% for shop in shops %}
+	<div class="block-center dialog details-dialog" id="{{ shop.id }}" title="User details">
+		<h5 class="center">Details for user {{ shop.username }}</h5>
+		<table>
+			<tr>
+				<td>Display Name</td>
+				<td id="display-name">
+					<a class="link change-content" content="display-name" id="{{ shop.id }}" href="#">{{ shop.display_name }}</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Firstname</td>
+				<td id="firstname">
+					<a class="link change-content" content="first-name" id="{{ shop.id }}" href="#">
+						{% if shop.first_name %}
+							{{ shop.first_name }}
+						{% else %}
+							Add user's first name
+						{% endif %}
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Lastname</td>
+				<td id="lastname">
+					<a class="link change-content" content="last-name" id="{{ shop.id }}" href="#">
+						{% if shop.last_name %}
+							{{ shop.last_name }}
+						{% else %}
+							Add user's last name
+						{% endif %}
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td id="address">
+					<a class="link change-content" content="address" id="{{ shop.id }}" href="#">{{ shop.address }}</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Phone number</td>
+				<td id="phone">
+					<a class="link change-content" content="phone-number" id="{{ shop.id }}" href="#">{{ shop.phone_number }}</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Shop description</td>
+				<td id="description"><a class="link change-description" id="{{ shop.id }}" href="#">Add description</a></td>
+			</tr>
+		</table>
+	</div>
+{% endfor %}
+<div class="block-center dialog" id="change-password-dialog">
+	<form id="change-password-form" action="/admin/" method="post">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>New Password</td>
+				<td>{{ changeDetailsForm.new_pass }}</td>
+			</tr>
+			<tr>
+				<td>Confirm Password</td>
+				<td>{{ changeDetailsForm.confirm_pass }}</td>
+			</tr>
+			<tr>
+				<td class="admin-password">Admin Password</td>
+				<td class="admin-password">{{ changeDetailsForm.current_pass }}</td>
+			</tr>
+		</table>
+		<div class="text-error block-center" id="error-display"></div>
+		<input class="button" type="submit" value="Change password" />
+	</form>
 </div>
+<div class="block-center dialog" id="change-content-dialog">
+	<form id="change-content-form" action="/admin/" method="post">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td id="new-content-label"></td>
+				<td id="new-content-input">{{ changeDetailsForm.new_content }}</td>
+			</tr>
+		</table>
+		<div class="text-error block-center" id="error-display"></div>
+		<input class="button" type="submit" />
+	</form>
+</div>
+<div class="center dialog" id="change-multi-status-dialog" title="Change multiple statuses">
+	<form>
+		<div><label>Choose status to apply for selected users</label></div>
+		<div id="radio">
+			<input type="radio" id="activate" name="radio" checked="checked" /><label for="activate">Activate</label>
+			<input type="radio" id="deactivate" name="radio" /><label for="deactivate">Deactivate</label>
+		</div>
+	</form>
+</div>
+<div class="center dialog" id="change-single-status-dialog" title="Change user status"></div>
+<!-- {% for shop1 in shops %}
+	{% for shop2 in shops %}
+		<div class="container block-content bkground" style="height: 150px">
+			Test block content #{{ forloop.counter }}
+		</div>
+	{% endfor %}
+{% endfor %} -->
 {% endblock %}

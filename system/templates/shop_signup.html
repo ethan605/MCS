@@ -12,7 +12,7 @@
 {% block header_buttons %}<button id="signin-button">Sign in</button>{% endblock %}
 
 {% block content %}
-	<div class="block-center" id="signup-dialog">
+	<div class="container block-content bkground block-center" id="signup-dialog">
 		<form id="signup-form" action="/signup/" method="post">
 			{% csrf_token %}
 			<table>

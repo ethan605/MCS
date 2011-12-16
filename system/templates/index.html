@@ -19,13 +19,15 @@
 {% endblock %}
 
 {% block content%}
-	<h1>Main content</h1>
-	{% if user.is_authenticated %}
-		<h2>Hello {{ user.username }}</h2>
-	{% else %}
-		<h2>Hello stranger, you're not signed in</h2>
-		<p>Please <a class="link" id="signin-button" href="#">sign in</a> or <a class="link" href="/signup/">sign up</a> for a new account now</p>
-	{% endif %}
+	<div class="container block-content bkground">
+		<h1>Main content</h1>
+		{% if user.is_authenticated %}
+			<h2>Hello {{ user.username }}</h2>
+		{% else %}
+			<h2>Hello stranger, you're not signed in</h2>
+			<p>Please <a class="link" id="signin-button" href="#">sign in</a> or <a class="link" href="/signup/">sign up</a> for a new account now</p>
+		{% endif %}
+	</div>
 {% endblock %}
 
 {% block js_components %}

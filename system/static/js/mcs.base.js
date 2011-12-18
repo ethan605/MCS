@@ -1,6 +1,12 @@
 $(document).ready(function() {
 	$(".link").removeClass("link").addClass("ui-state-default ui-corner-all ui-button ui-button-link");
-	$("input:submit, a.button, button").button();
+	$("a.button, button").button();
+	$("#content, #footer").hide();
+	$("#header").hide().slideDown(function() {
+		$("#content").fadeIn(function() {
+			$("#footer").slideDown();
+		});
+	});
 	$(".dialog").dialog({
 		autoOpen: false,
 		modal: true,

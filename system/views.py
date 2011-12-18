@@ -239,3 +239,8 @@ def ajax(request):
 #        return HttpResponse(res_data, mimetype="application/json")
 
     return render_to_response("ajax.html", {"changeDetailsForm": forms.ChangeDetailsForm()})
+
+def search(request):
+    if request.is_ajax():
+        print request.GET
+        return HttpResponse("response")

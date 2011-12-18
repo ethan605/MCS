@@ -16,6 +16,7 @@ urlpatterns = patterns("",
     # url(r"^admin/", include(admin.site.urls)),
 
     url(r"^$", "system.views.index"),
+    url(r"^search/$", "system.views.search"),
     url(r"^signin/$","system.views.sign_in"),
     url(r"^signup/$", "system.views.signup"),
     url(r"^signup/success/$","system.views.success"),

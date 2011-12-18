@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		{% block meta %}
@@ -8,9 +8,11 @@
 		<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript" src="/static/js/django.x-csrftoken.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.form.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.color.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.validate.min.js"></script>
-		<script type="text/javascript" src="/static/js/mcs.user.sign.js"></script>
 		<script type="text/javascript" src="/static/js/mcs.base.js"></script>
+		<script type="text/javascript" src="/static/js/mcs.user.sign.js"></script>
+		<script type="text/javascript" src="/static/js/mcs.searchbox.js"></script>
 		{% block js %}
 			<!-- for extra javascript -->
 		{% endblock %}
@@ -33,6 +35,14 @@
 				<div class="left-buttons">
 					<a class="link" href="{% url system.views.index %}"><img src="/static/images/logo.png"></a>
 					{% block header_url %}{% endblock %}
+				</div>
+				<div class="search-box">
+					<form id="searchForm" action="/search/" method="get">
+						<div id="searchDiv">
+							<input type="text" name="globalSearch" id="searchBox" value="Enter your search" />
+						</div>
+						<input type="submit" id="searchSubmit" value="" />
+					</form>
 				</div>
 				<div class="right-buttons" id="header-buttons">
 					{% if user.is_authenticated %}

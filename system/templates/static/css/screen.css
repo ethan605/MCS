@@ -10,10 +10,10 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 /*** BASIC TYPOGRAPHY ***/
-html { font-size: 62.5%; font-family: "Lucida Grande", Tahoma, Helvetica, Arial, sans-serif; }
+html { font-size: 62.5%; font-family: "Lucida Grande", Ubuntu, Tahoma, Helvetica, Arial, sans-serif; }
 strong, th, thead td, h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 cite, em, dfn { font-style: italic; }
-code, kbd, samp, pre, tt, var, input[type='text'], input[type='password'], textarea { font-size: 92%; font-family: "Lucida Console", "Courier New", courier, monospace; }
+code, kbd, samp, pre, tt, var, input[type='text'], input[type='password'], textarea { font-size: 100%; font-family: "Lucida Grande", Ubuntu, "Tahoma", courier, monospace; }
 del { text-decoration: line-through; color: #666; }
 ins, dfn { border-bottom: 1px solid #ccc; }
 small, sup, sub { font-size: 85%; }
@@ -29,7 +29,6 @@ blockquote *:first-child:before { content: "\201C"; }
 blockquote *:first-child:after { content: "\201D"; }
 
 /*** FORMS ***/
-fieldset { padding:1.4em; margin: 0 0 1.5em 0; border: 1px solid #ccc; }
 legend { font-weight: bold; font-size:1.2em; }
 label { font-weight: bold; }
 textarea, input[type='text'], input[type='password'], select { border: 1px solid #ccc; background: #fff; }
@@ -73,7 +72,6 @@ h6 { margin: 1.6em 0 .8em; }
 th, td { padding: .8em; }
 caption { padding-bottom: .8em; } /*** padding instead of margin for IE ***/
 blockquote { padding: 0 1em; margin: 1.6em 0; }
-fieldset { padding: 0 1em 1em 1em; margin: 1.6em 0; } /*** padding-top is margin-top for fieldsets in Opera ***/
 legend { padding-left: .8em; padding-right: .8em; }
 legend+* { margin-top: 1em; } /*** compensates for the opera margin bug ***/
 textarea, input { padding: .3em .4em .15em .4em; }
@@ -83,7 +81,6 @@ dt { margin-top: .8em; margin-bottom: .4em; }
 ul { margin-left: 1.5em; }
 ol { margin-left: 2.35em; }
 ol ol, ul ol { margin-left: 2.5em; }
-form div { margin-bottom: 1em; }
 
 /*** COLORS ***/
 code, pre { color: #c33; } /*** very optional, but still useful. W3C uses about the same colors for codes ***/
@@ -91,7 +88,6 @@ code, pre { color: #c33; } /*** very optional, but still useful. W3C uses about 
 /*** 24 COLUMN GRID ***/
 .container {width:900px; margin:0 auto 0;}
 .showgrid {background:url(../images/grid.png);}
-/*body {margin:1.5em 0;}*/
 div.span-1, div.span-2, div.span-3, div.span-4, div.span-5, div.span-6, div.span-7, div.span-8, div.span-9, div.span-10, div.span-11, div.span-12, div.span-13, div.span-14, div.span-15, div.span-16, div.span-17, div.span-18, div.span-19, div.span-20, div.span-21, div.span-22, div.span-23 {float:left;margin-right:10px;}
 div.span-24 {float:left;}
 div.last {margin-right:0;}

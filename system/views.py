@@ -243,4 +243,7 @@ def ajax(request):
 def search(request):
     if request.is_ajax():
         print request.GET
+        searchValue = request.GET["globalSearch"]
+        if searchValue == "Enter your search" and searchValue == "":
+            return HttpResponse()
         return HttpResponse("response")

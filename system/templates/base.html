@@ -36,14 +36,7 @@
 					<a class="link" href="{% url system.views.index %}"><img src="/static/images/logo.png"></a>
 					{% block header_url %}{% endblock %}
 				</div>
-				<div class="search-box">
-					<form id="searchForm" action="/search/" method="get">
-						<div id="searchDiv">
-							<input type="text" name="globalSearch" id="searchBox" value="Enter your search" />
-						</div>
-						<input type="submit" id="searchSubmit" value="" />
-					</form>
-				</div>
+				{% block search_box %}{% endblock %}
 				<div class="right-buttons" id="header-buttons">
 					{% if user.is_authenticated %}
 						{% if user.is_superuser %}

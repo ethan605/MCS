@@ -8,14 +8,14 @@ $(document).ready(function(){
 	var searchMask = searchBox.val();
 
 	searchForm.submit(function() {
+		searchForm.ajaxSubmit({
+			success: function(data) {
+				if (data != "")
+					alert(data);
+			}
+		});
 		return false;
 	});
-
-	// searchForm.ajaxSubmit({
-	// 	success: function(data) {
-	// 		alert(data);
-	// 	}
-	// });
 	
 	searchBox.bind("focus", function() {
 		if(searchBox.val() === searchMask)
@@ -46,16 +46,5 @@ $(document).ready(function(){
 			submit.fadeOut(100);
 		else
 			submit.css({display: "none"});
-	}).keyup(function() {
-		if(searchBox.val() === "")
-			if(!($.browser.msie && $.browser.version < 9))
-				submit.fadeOut(300);
-			else
-				submit.css({display: "none"});
-		else
-			if(!($.browser.msie && $.browser.version < 9))
-				submit.fadeIn(300);
-			else
-				submit.css({display: "block"});
 	});
 });

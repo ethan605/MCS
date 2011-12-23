@@ -3,8 +3,13 @@
  */
 $(document).ready(function() {
 	$("#tabs").tabs();
+
 	$("#all-user-table tfoot tr").addClass("noborder")
 		.children().addClass("noborder");
+	
+	$("#prev-table, #next-table").click(function() {
+		return false;
+	});
 	/*
 	 * Init elements
 	 * Buttons

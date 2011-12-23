@@ -30,37 +30,43 @@
 {% endblock %}
 
 {% block content%}
-	<div class="container block-content bkground">
-		<h1>Main content</h1>
+	<div class="container" id="user-notification">
 		{% if user.is_authenticated %}
+			<h1>User's notifications</h1>
 			<h2>Hello {{ user.username }}</h2>
 		{% else %}
 			<h2>Hello stranger, you're not signed in</h2>
 			<p>Please <a class="link" id="signin-button" href="#">sign in</a> or <a class="link" href="/signup/">sign up</a> for a new account now</p>
 		{% endif %}
 	</div>
-{% endblock %}
-
-{% block js_components %}
-	<div class="block-center dialog" id="signin-dialog" title="User sign in">
-		<form id="signin-form" action="/signin/" method="POST">
-			{% csrf_token %}
-			<table>
-				<tr>
-					<td><strong>Username</strong></td>
-					<td>{{ form.username }}</td>
-				</tr>
-				<tr>
-					<td><strong>Password</strong></td>
-					<td>{{ form.password }}</td>
-				</tr>
-			</table>
-			<div class="text-error block-center" id="error-show"></div>
-			<p>
-				{{ form.remember }}
-				<label for="remember">Remember me</label>
-			</p>
-			<input class="button" type="submit" value="Sign in" />
-		</form>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+	</div>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+	</div>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+	</div>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+	</div>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+	</div>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+	</div>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+	</div>
+	<div class="container block-content bkground news">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis euismod mi quis iaculis. In ac eros et elit tristique porttitor nec sit amet eros. Integer ultrices egestas elementum. Cras vel arcu felis, eu vestibulum nisi. Donec dignissim venenatis lacus, sit amet ullamcorper arcu lacinia ut. Vestibulum nunc mi, mollis vel vehicula a, ultricies sed nibh. Nam nisi dolor, tempus vitae mollis eu, lobortis ac sapien. Suspendisse at hendrerit metus. Cras vulputate, eros a mollis aliquet, est diam ultricies libero, a ultricies nisi erat vitae magna.
 	</div>
 {% endblock %}

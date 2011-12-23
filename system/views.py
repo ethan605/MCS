@@ -238,12 +238,12 @@ def ajax(request):
 #        res_data = simplejson.dumps(response_dict)
 #        return HttpResponse(res_data, mimetype="application/json")
 
-    return render_to_response("ajax.html", {"changeDetailsForm": forms.ChangeDetailsForm()})
+    return render_to_response("ajax.html", {"shops": forms.Shop.objects.all()})
 
 def search(request):
     if request.is_ajax():
         print request.GET
         searchValue = request.GET["globalSearch"]
-        if searchValue == "Enter your search" and searchValue == "":
+        if searchValue == "Enter your search" or searchValue == "":
             return HttpResponse()
         return HttpResponse("response")

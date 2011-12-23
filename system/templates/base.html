@@ -4,6 +4,17 @@
 		{% block meta %}
 			<!-- for extra meta tags -->
 		{% endblock %}
+		<link rel="stylesheet" href="/static/css/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/static/css/print.css" type="text/css" media="print" />
+		<!--[if IE]>
+		  <link rel="stylesheet" href="/static/css/ie.css" type="text/css" media="screen, projection" />
+		<![endif]-->
+		<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/static/css/jquery-ui-1.8.16.lightness.css" type="text/css" />
+		<link rel="stylesheet" href="/static/css/jquery-ui-1.8.16.extra.css" type="text/css" />
+		{% block css %}
+			<!-- for extra css -->
+		{% endblock %}
 		<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript" src="/static/js/django.x-csrftoken.js"></script>
@@ -16,32 +27,22 @@
 		{% block js %}
 			<!-- for extra javascript -->
 		{% endblock %}
-		<link rel="stylesheet" href="/static/css/screen.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="/static/css/print.css" type="text/css" media="print" />
-		<!--[if IE]>
-		  <link rel="stylesheet" href="/static/css/ie.css" type="text/css" media="screen, projection" />
-		<![endif]-->
-		<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="/static/css/jquery-ui-1.8.16.lightness.css" type="text/css" />
-		<link rel="stylesheet" href="/static/css/jquery-ui-1.8.16.extra.css" type="text/css" />
-		{% block css %}
-			<!-- for extra css -->
-		{% endblock %}
 		<title>{% block title %}{% endblock %}</title>
 	</head>
-	<body class="background">
-		<div class="header-ribbon header-bkground" id="header">
+	<body class="bkground">
+		<div class="header-ribbon bkground" id="header">
 			<div class="container">
-				<div class="left-buttons">
+				<div class="header-buttons left-align">
 					<a class="link" href="{% url system.views.index %}"><img src="/static/images/logo.png"></a>
 					{% block header_url %}{% endblock %}
 				</div>
 				{% block search_box %}{% endblock %}
-				<div class="right-buttons" id="header-buttons">
+				<div class="header-buttons right-align" id="header-buttons">
 					{% if user.is_authenticated %}
 						{% if user.is_superuser %}
 							<a class="button" href="/admin/">Admin</a>	
 						{% endif %}
+						<a class="button" href="/usercp/inbox/">Inbox</a>
 						<a class="button" href="/usercp/">{{ user.username }}</a>
 						<button id="signout-button">Sign out</button>
 					{% else %}
@@ -53,11 +54,39 @@
 		<div class="main-content" id="content">
 			{% block content %}{% endblock %}
 		</div>
-		<div class="container" id="footer">
-			<div class="center">Copyright (c) MCS</div>
+		<div class="footer-credit" id="footer">
+			<div class="container">
+				<div class="left-align">Copyright (c) MCS</div>
+				<div class="right-align">
+					<a href="/about/">About</a>
+					<a href="/contact/">Contact</a>
+				</div>
+			</div>
 		</div>
 		
 		<!-- html components for javascript -->
+		<div class="block-center dialog" id="signin-dialog" title="User sign in">
+			<form id="signin-form" action="/signin/" method="POST">
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td><strong>Username</strong></td>
+						<td>{{ form.username }}</td>
+					</tr>
+					<tr>
+						<td><strong>Password</strong></td>
+						<td>{{ form.password }}</td>
+					</tr>
+				</table>
+				<div class="text-error block-center" id="error-show"></div>
+				<p>
+					<a class="link" href="/usercp/forgotpassword/">Forgot password?</a>
+					{{ form.remember }}
+					<label for="remember">Remember me</label>
+				</p>
+				<input class="button" type="submit" value="Sign in" />
+			</form>
+		</div>
 		<div class="center dialog" id="signout-dialog" title="User signout confirm"></div>
 		<div class="center dialog" id="notice-dialog" title="Notice"></div>
 		{% block js_components %}
